@@ -19,10 +19,18 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run Tests
+      - name: Run Tests in Node ${{ matrix.node-version }}
+        users: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+        run: yarn install
         run: yarn test
 
       - name: Completion Message
