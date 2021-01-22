@@ -1,25 +1,16 @@
-name: Actions
+name: CI
 
-# Run this workflow every time a new commit pushed to your repository
-on: push
+on: [push, pull_request]
+
+  workflow_dispatch:
 
 jobs:
-  # Set the job key. The key is displayed as the job name
-  # when a job name is not provided
-  super-lint:
-    # Name the Job
-    name: Lint code base
-    # Set the type of machine to run on
+
+  # Run Bug Tracker Tests
+  run-tests:
     runs-on: ubuntu-latest
-
     steps:
-      # Checks out a copy of your repository on the ubuntu-latest machine
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      # Runs the Super-Linter action
-      - name: Run Actions
-        uses: github/super-linter@v3
-        env:
-          DEFAULT_BRANCH: master
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout Code
+      - uses: actions/checkout@v2
+      - name: Run Bug Tracker Tests
+        run: yarn test
