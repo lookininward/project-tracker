@@ -31,9 +31,10 @@ function DataTable(props) {
     setSearchResults(results);
   }, [searchTerm]);
 
-  return (
-    <div>
-      <div
+  const searchBar = () => {
+    if (props.enableSearch) {
+      return <div
+        data-testid="search-bar"
         style={{
           display: "flex",
           width: "100%",
@@ -48,18 +49,23 @@ function DataTable(props) {
           onChange={handleChange}
         ></input>
       </div>
+    }
+  }
 
+  return (
+    <div>
+      <h1>Data Table Component</h1>
+      {searchBar()}
       <table>
         <thead>
           <tr>
-            {props.fields.map((field, idx) => <th key={idx}>{field}</th>)}
+            {props.fields.map((field, idx) => <th data-testid="table-header" key={idx}>{field}</th>)}
           </tr>
         </thead>
-
         <tbody>
           {
             searchResults.map(user =>
-              <tr key={user.id}>
+              <tr data-testid="table-row" key={user.id}>
                 <td>{user.id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
