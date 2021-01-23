@@ -1,0 +1,40 @@
+{
+  "users":[
+     {
+        "id":1,
+        "name":"Michael",
+        "email":"vinoth.michaelxavier@gmail.com",
+        "role":"Developer"
+     },
+     {
+        "id":2,
+        "name":"Kiersty",
+        "email":"kiersty.m.xavier@gmail.com",
+        "role":"Project Manager"
+     },
+     {
+        "id":3,
+        "name":"Misty",
+        "email":"kiersty.m.xavier@gmail.com",
+        "role":"Administrator"
+     },
+     {
+      "id":4,
+      "name":"Arthur",
+      "email":"arthur@playground.com",
+      "role":"Developer"
+   },
+   {
+      "id":5,
+      "name":"Matilda",
+      "email":"matilda.grayson@playground.com",
+      "role":"Designer"
+   },
+   {
+      "id":6,
+      "name":"Homer",
+      "email":"home.simpson@springfield.com",
+      "role":"Nuclear Power Plant Engineer"
+   }
+  ]
+}
