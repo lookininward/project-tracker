@@ -1,10 +1,12 @@
 import each from 'jest-each';
 import { render, screen } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import DataTable from './DataTable';
 import data from '../assets/data.json';
 import { User } from '../models/user';
 import { Animal } from '../test/models/animal';
 import { Game } from '../test/models/game';
+import { sortByField } from '../helpers/sortByField';
 
 const users = data['users'].map(user => new User({
   id: user.id,
@@ -79,6 +81,42 @@ test('hides search bar if disabled', () => {
   render(<DataTable data={users} fields={fields} enableSearch={false} />);
   const searchBar = screen.queryByTestId("search-bar");
   expect(searchBar).not.toBeInTheDocument();
+});
+
+describe('can sort data', () => {
+  each([
+    ['user', users, fields, 6],
+    ['animal', animals, animalFields, 4],
+    ['game', games, gameFields, 3],
+  ]).describe('can sort data two ways by field', (dataType, propsData, propsFields, expectedRows) => {
+
+    const testCases = propsFields.map((field, idx) => [field, idx === 0 ? true: false, idx === 0 ? false: true]);
+
+    each(
+      testCases
+    ).test(`can sort ${dataType} by %s`, (sortField, shouldDescend) => {
+      render(<DataTable data={propsData} fields={propsFields} />);
+      const field = screen.getByText(sortField);
+
+      act(() => {
+        field.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      });
+
+      const tableRows = screen.getAllByTestId("table-row");
+
+      tableRows.forEach((row, rowIdx) => {
+        const tableCells = row.childNodes;
+        tableCells.forEach((cell, cellIdx) => {
+          const sortedData = sortByField(propsData, sortField, shouldDescend);
+          const expectedCellValue = sortedData[rowIdx][propsFields[cellIdx]];
+          expect(cell.textContent).toContain(expectedCellValue);
+        });
+      });
+
+      // sort again on click same header
+    });
+
+  });
 });
 
 // can filter data by search 

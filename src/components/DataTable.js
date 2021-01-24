@@ -1,4 +1,5 @@
 import React from 'react';
+import { sortByField } from '../helpers/sortByField';
 
 /**
  * Data Table
@@ -51,18 +52,24 @@ function DataTable(props) {
     }
   }
 
-  function sortByColumn(field) {
+  /**
+   * Sort Data
+   * @function
+   * @param {string} field - field to sort data by
+   */
+  function sortData(field) {
     const shouldDescend = sortField !== field ? false : !isDescending;
-    
-    const results = searchResults.sort((a, b) => 
-      (a[field] < b[field] ? -1 : 1) * (!shouldDescend ? 1 : -1)
-    );
-    
+    const results = sortByField(searchResults, field, shouldDescend);
     setSortField(field);
     setSortOrder(shouldDescend);
     setSearchResults(results);
   }
 
+  /**
+   * Column Status
+   * @function
+   * @param {string} field - field to determine if sorting by column; direction
+   */
   function columnStatus(field) {
     if (field === sortField) {
       return isDescending ? <span>&#8964;</span> : <span>&#8963;</span>
@@ -84,7 +91,7 @@ function DataTable(props) {
           <tr>
             {fields.map((field, idx) =>
               <th
-                onClick={sortByColumn.bind(this, field)}
+                onClick={sortData.bind(this, field)}
                 data-testid="table-header" key={`field-${idx}`}>
                   {field} { columnStatus(field) }
               </th>)}
