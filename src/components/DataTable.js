@@ -1,27 +1,26 @@
 import React from 'react';
 
-/*
-  Arguments:
-  data: array
-    - list of objects to display in table
-  fields: array
-    - fields from data objects to be used as header and columns
-  enableSearch: boolean
-    - enable the search and filter input
-  enableSort: boolean
-    - enable two-way and per field sort
+/**
+ * Data Table
+ * @component
+ * @param {array} data - list of objects to display in table
+ * @param {array} fields - fields from data objects to be used as header and columns
+ * @param {boolean} enableSearch - enable the search and filter input
+ * @param {boolean} enableSort - enable two-way, per field sort
  */
-
 function DataTable(props) {
+  const { data = [], fields = [], enableSort = false, enableSearch = false } = props;
+  const [sortField, setSortField] = React.useState(fields[0]);
   const [searchTerm, setSearchTerm] = React.useState("");
   const [searchResults, setSearchResults] = React.useState([]);
+  const [isDescending, setSortOrder] = React.useState(false);
   const handleChange = event => {
     setSearchTerm(event.target.value);
   }
 
   React.useEffect(() => {
     const term = searchTerm.toLowerCase();
-    const results = props.data.filter(user => {
+    const results = data.filter(user => {
       const { id, name, email, role } = user;
       return id.toString().toLowerCase().includes(term) ||
         name.toLowerCase().includes(term) ||
@@ -32,7 +31,7 @@ function DataTable(props) {
   }, [searchTerm]);
 
   const searchBar = () => {
-    if (props.enableSearch) {
+    if (enableSearch) {
       return <div
         data-testid="search-bar"
         style={{
@@ -52,24 +51,50 @@ function DataTable(props) {
     }
   }
 
+  function sortByColumn(field) {
+    const shouldDescend = sortField !== field ? false : !isDescending;
+    
+    const results = searchResults.sort((a, b) => 
+      (a[field] < b[field] ? -1 : 1) * (!shouldDescend ? 1 : -1)
+    );
+    
+    setSortField(field);
+    setSortOrder(shouldDescend);
+    setSearchResults(results);
+  }
+
+  function columnStatus(field) {
+    if (field === sortField) {
+      return isDescending ? <span>&#8964;</span> : <span>&#8963;</span>
+    }
+  }
+
   return (
     <div>
       <h1>Data Table Component</h1>
       {searchBar()}
+
+      <br/>
+      sortField: {sortField}<br/>
+      isDescending: {isDescending ? ('True') : ('False')}
+      <br/>
+
       <table>
         <thead>
           <tr>
-            {props.fields.map((field, idx) => <th data-testid="table-header" key={idx}>{field}</th>)}
+            {fields.map((field, idx) =>
+              <th
+                onClick={sortByColumn.bind(this, field)}
+                data-testid="table-header" key={`field-${idx}`}>
+                  {field} { columnStatus(field) }
+              </th>)}
           </tr>
         </thead>
         <tbody>
           {
-            searchResults.map(user =>
-              <tr data-testid="table-row" key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
+            searchResults.map(item =>
+              <tr data-testid="table-row" key={item.id}>
+                  { fields.map((field, idx) => <td data-testid="table-cell" key={`td-${item.id}-${idx}`}>{ item[field] } </td>) }
               </tr>
             )
           }

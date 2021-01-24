@@ -5,4 +5,13 @@ export class User {
     this.name = name;
     this.role = role;
   }
+
+  get fields() {
+    return [
+      'id',
+      'name',
+      'email',
+      'role',
+    ]
+  }
 }

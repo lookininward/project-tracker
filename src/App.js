@@ -11,6 +11,8 @@ const users = data['users'].map(user => new User({
   role: user.role,
 }));
 
+const fields = users[0].fields;
+
 function App() {
   return (
     <div className="App">
@@ -24,7 +26,7 @@ function App() {
         </div>
         <DataTable
           data={users}
-          fields={Object.keys(users[0])}
+          fields={fields}
           enableSearch={true}
         />
       </div>
