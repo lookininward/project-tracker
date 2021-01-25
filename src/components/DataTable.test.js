@@ -88,12 +88,9 @@ describe('can sort data', () => {
     ['user', users, fields, 6],
     ['animal', animals, animalFields, 4],
     ['game', games, gameFields, 3],
-  ]).describe('can sort data two ways by field', (dataType, propsData, propsFields, expectedRows) => {
-
-    const testCases = propsFields.map((field, idx) => [field, idx === 0 ? true: false, idx === 0 ? false: true]);
-
+  ]).describe('can sort data two ways by field', (dataType, propsData, propsFields) => {
     each(
-      testCases
+      propsFields.map((field, idx) => [field, idx === 0 ? true : false])
     ).test(`can sort ${dataType} by %s`, (sortField, shouldDescend) => {
       render(<DataTable data={propsData} fields={propsFields} />);
       const field = screen.getByText(sortField);
@@ -102,7 +99,7 @@ describe('can sort data', () => {
         field.dispatchEvent(new MouseEvent('click', { bubbles: true }));
       });
 
-      const tableRows = screen.getAllByTestId("table-row");
+      let tableRows = screen.getAllByTestId("table-row");
 
       tableRows.forEach((row, rowIdx) => {
         const tableCells = row.childNodes;
@@ -113,9 +110,22 @@ describe('can sort data', () => {
         });
       });
 
-      // sort again on click same header
-    });
+      // sort again
+      act(() => {
+        field.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      });
 
+      tableRows = screen.getAllByTestId("table-row");
+
+      tableRows.forEach((row, rowIdx) => {
+        const tableCells = row.childNodes;
+        tableCells.forEach((cell, cellIdx) => {
+          const sortedData = sortByField(propsData, sortField, !shouldDescend);
+          const expectedCellValue = sortedData[rowIdx][propsFields[cellIdx]];
+          expect(cell.textContent).toContain(expectedCellValue);
+        });
+      });
+    });
   });
 });
 
