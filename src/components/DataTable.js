@@ -19,15 +19,22 @@ function DataTable(props) {
     setSearchTerm(event.target.value);
   }
 
+
+  function filterByTerm(myData, myFields, myTerm) {
+    if (myTerm.length === 0) {
+      return myData;
+    }
+
+    return myData.filter(item =>
+      myFields.filter(field =>
+        item[field].toString().toLowerCase().includes(myTerm)
+      ).length > 0 ? item : null
+    );
+  }
+
   React.useEffect(() => {
     const term = searchTerm.toLowerCase();
-    const results = data.filter(user => {
-      const { id, name, email, role } = user;
-      return id.toString().toLowerCase().includes(term) ||
-        name.toLowerCase().includes(term) ||
-        email.toLowerCase().includes(term) ||
-        role.toLowerCase().includes(term);
-    });
+    const results = filterByTerm(data, fields, term);
     setSearchResults(results);
   }, [searchTerm]);
 
@@ -58,6 +65,9 @@ function DataTable(props) {
    * @param {string} field - field to sort data by
    */
   function sortData(field) {
+    if (!enableSort) {
+      return;
+    }
     const shouldDescend = sortField !== field ? false : !isDescending;
     const results = sortByField(searchResults, field, shouldDescend);
     setSortField(field);
@@ -71,7 +81,7 @@ function DataTable(props) {
    * @param {string} field - field to determine if sorting by column; direction
    */
   function columnStatus(field) {
-    if (field === sortField) {
+    if (enableSort && field === sortField) {
       return isDescending ? <span>&#8964;</span> : <span>&#8963;</span>
     }
   }
@@ -81,10 +91,10 @@ function DataTable(props) {
       <h1>Data Table Component</h1>
       {searchBar()}
 
-      <br/>
-      sortField: {sortField}<br/>
+      <br />
+      sortField: {sortField}<br />
       isDescending: {isDescending ? ('True') : ('False')}
-      <br/>
+      <br />
 
       <table>
         <thead>
@@ -93,7 +103,7 @@ function DataTable(props) {
               <th
                 onClick={sortData.bind(this, field)}
                 data-testid="table-header" key={`field-${idx}`}>
-                  {field} { columnStatus(field) }
+                {field} {columnStatus(field)}
               </th>)}
           </tr>
         </thead>
@@ -101,7 +111,7 @@ function DataTable(props) {
           {
             searchResults.map(item =>
               <tr data-testid="table-row" key={item.id}>
-                  { fields.map((field, idx) => <td data-testid="table-cell" key={`td-${item.id}-${idx}`}>{ item[field] } </td>) }
+                {fields.map((field, idx) => <td data-testid="table-cell" key={`td-${item.id}-${idx}`}>{item[field]} </td>)}
               </tr>
             )
           }
