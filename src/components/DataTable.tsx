@@ -10,13 +10,25 @@ import { filterBySearch } from '../helpers/filterBySearch';
  * @param {boolean} enableSearch - enable the search and filter input
  * @param {boolean} enableSort - enable two-way, per field sort
  */
-function DataTable(props) {
+
+interface Props {
+  data: Array<Object>,
+  fields: Array<String>,
+  enableSort: boolean,
+  enableSearch: boolean,
+}
+
+function DataTable(this: any, props: Props) {
   const { data = [], fields = [], enableSort = false, enableSearch = false } = props;
-  const [sortField, setSortField] = React.useState(fields[0]);
+
+  // interface SortField {
+  //   field: string
+  // }
+  const [sortField, setSortField] = React.useState<String>(); // fields[0]
   const [searchTerm, setSearchTerm] = React.useState("");
   const [searchResults, setSearchResults] = React.useState([]);
   const [isDescending, setSortOrder] = React.useState(false);
-  const handleChange = event => {
+  const handleChange = (event: any) => {
     setSearchTerm(event.target.value);
   }
 
@@ -52,7 +64,7 @@ function DataTable(props) {
    * @function
    * @param {string} field - field to sort data by
    */
-  function sortData(field) {
+  function sortData(field: String) {
     if (!enableSort) {
       return;
     }
@@ -68,7 +80,7 @@ function DataTable(props) {
    * @function
    * @param {string} field - field to determine if sorting by column; direction
    */
-  function columnStatus(field) {
+  function columnStatus(field: String) {
     if (enableSort && field === sortField) {
       return isDescending ? <span>&#8964;</span> : <span>&#8963;</span>
     }
@@ -90,7 +102,9 @@ function DataTable(props) {
             {fields.map((field, idx) =>
               <th
                 onClick={sortData.bind(this, field)}
-                data-testid="table-header" key={`field-${idx}`}>
+                data-testid="table-header"
+                key={`field-${idx}`}
+              >
                 {field} {columnStatus(field)}
               </th>)}
           </tr>
