@@ -2,7 +2,7 @@ import each from 'jest-each';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import DataTable from './DataTable';
-import data from '../assets/data.json';
+import data from '../assets/data';
 import { User } from '../models/user';
 import { Animal } from '../test/models/animal';
 import { Game } from '../test/models/game';
@@ -17,7 +17,8 @@ const users = data['users'].map(user => new User({
 
 const animals = data['animals'].map(animal => new Animal({
   id: animal.id,
-  name: animal.name,
+  species: animal.species,
+  country: animal.country,
 }));
 
 const games = data['games'].map(game => new Game({
@@ -38,28 +39,28 @@ beforeEach(() => {
 
 describe('renders table data', () => {
   each([
-    ['user', users, fields, 4],
-    ['animal', animals, animalFields, 2],
-    ['game', games, gameFields, 5],
-  ]).describe('renders table headers', (dataType, propsData, propsFields, expectedFields) => {
-    test(`renders ${expectedFields} headers for ${dataType} data`, () => {
+    ['user', users, fields],
+    ['animal', animals, animalFields],
+    ['game', games, gameFields],
+  ]).describe('renders table headers', (dataType, propsData, propsFields) => {
+    test(`renders ${propsFields.length} headers for ${dataType} data`, () => {
       render(<DataTable data={propsData} fields={propsFields} enableSort={true} />);
       const tableHeaders = screen.getAllByTestId("table-header");
-      expect(tableHeaders.length).toBe(expectedFields);
+      expect(tableHeaders.length).toBe(propsFields.length);
       propsFields.forEach(field => expect(screen.getByText(field)).toBeInTheDocument());
       tableHeaders.forEach((header, idx) => expect(header.textContent).toContain(propsFields[idx]));
     });
   });
 
   each([
-    ['user', users, fields, 6],
-    ['animal', animals, animalFields, 4],
-    ['game', games, gameFields, 3],
-  ]).describe('renders table rows', (dataType, propsData, propsFields, expectedRows) => {
-    test(`renders ${expectedRows} rows of ${dataType} data`, () => {
+    ['user', users, fields],
+    ['animal', animals, animalFields],
+    ['game', games, gameFields],
+  ]).describe('renders table rows', (dataType, propsData, propsFields) => {
+    test(`renders ${propsData.length} rows of ${dataType} data`, () => {
       render(<DataTable data={propsData} fields={propsFields} enableSort={true} />);
       const tableRows = screen.getAllByTestId("table-row");
-      expect(tableRows.length).toBe(expectedRows);
+      expect(tableRows.length).toBe(propsData.length);
       propsData.forEach(function (item) {
         expect(screen.getByText(item.id)).toBeInTheDocument();
       });
@@ -152,9 +153,9 @@ describe('can sort data', () => {
 
 describe('can filter data by search', () => {
   each([
-    ['user', users, fields],
-    ['animal', animals, animalFields],
-    ['game', games, gameFields],
+    ['users', users, fields],
+    ['animals', animals, animalFields],
+    ['games', games, gameFields],
   ]).describe('can search data across all fields', (dataType, propsData, propsFields) => {
     each(
       [].concat.apply([],
@@ -167,18 +168,18 @@ describe('can filter data by search', () => {
           ])
         )
       )
-    ).test(`can filter ${dataType} data by '%s'`, (searchTerm, expectedNumRows) => {
+    ).test(`can filter ${dataType} by '%s'`, (searchTerm, expectedNumRows) => {
       render(<DataTable data={propsData} fields={propsFields} enableSearch={true} />);
       const searchBar = screen.queryByTestId("search-bar").querySelector("input");
       fireEvent.change(searchBar, { target: { value: searchTerm } })
       const tableRows = screen.getAllByTestId("table-row");
       expect(tableRows.length).toBe(expectedNumRows);
     });
+  });
 
-    test('cannot search if disabled', () => {
-      render(<DataTable data={users} fields={fields} />);
-      const searchBar = screen.queryByTestId("search-bar");
-      expect(searchBar).toBe(null);      
-    });
+  test('cannot search if disabled', () => {
+    render(<DataTable data={users} fields={fields} />);
+    const searchBar = screen.queryByTestId("search-bar");
+    expect(searchBar).toBe(null);      
   });
 });

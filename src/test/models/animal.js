@@ -1,13 +1,15 @@
 export class Animal {
-  constructor({ id, name}) {
+  constructor({ id, species, country}) {
     this.id = id;
-    this.name = name;
+    this.species = species;
+    this.country = country;
   }
 
   get fields() {
     return [
       'id',
-      'name',
+      'species',
+      'country'
     ]
   }
 }

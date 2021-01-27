@@ -1,7 +1,7 @@
 import React from "react";
 import './App.css';
 import DataTable from './components/DataTable';
-import data from './assets/data.json';
+import data from './assets/data';
 import { User } from './models/user';
 
 const users = data['users'].map(user => new User({
@@ -28,6 +28,7 @@ function App() {
           data={users}
           fields={fields}
           enableSearch={true}
+          enableSort={true}
         />
       </div>
     </div>
