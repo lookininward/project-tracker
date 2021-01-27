@@ -95,7 +95,7 @@ describe('can sort data', () => {
   ]).describe('can sort data two ways by field', (dataType, propsData, propsFields) => {
     each(
       propsFields.map((field, idx) => [field, idx === 0 ? true : false])
-    ).test(`can sort ${dataType} by %s`, (sortField, shouldDescend) => {
+    ).test(`can sort ${dataType} by '%s'`, (sortField, shouldDescend) => {
       render(<DataTable data={propsData} fields={propsFields} enableSort={true} />);
       const field = screen.getByText(sortField);
 
@@ -156,25 +156,18 @@ describe('can filter data by search', () => {
     ['animal', animals, animalFields],
     ['game', games, gameFields],
   ]).describe('can search data across all fields', (dataType, propsData, propsFields) => {
-
-    const masterTestCases = propsFields.map(field => {
-      return propsData.map(item => {
-        return [
-          item[field].toString(),
-          (() => { // expectedNumRows
-            let count = 0;
-            count = propsData.filter(el => {
-              return el[field].toString().indexOf(item[field].toString()) != -1;
-            }).length;
-            return count;
-          })()
-        ]
-      });
-    }).flat();
-
     each(
-      masterTestCases,
-    ).test(`can filter ${dataType} data by %s`, (searchTerm, expectedNumRows) => {
+      [].concat.apply([],
+        propsFields.map(field =>
+          propsData.map(item => [
+            item[field].toString(), // searchTerm
+            propsData.filter(obj => // expectedNumRows matching searchTerm
+              Object.values(obj).map(i => i.toString()).join().includes(item[field].toString())
+            ).length
+          ])
+        )
+      )
+    ).test(`can filter ${dataType} data by '%s'`, (searchTerm, expectedNumRows) => {
       render(<DataTable data={propsData} fields={propsFields} enableSearch={true} />);
       const searchBar = screen.queryByTestId("search-bar").querySelector("input");
       fireEvent.change(searchBar, { target: { value: searchTerm } })
@@ -182,6 +175,10 @@ describe('can filter data by search', () => {
       expect(tableRows.length).toBe(expectedNumRows);
     });
 
-    // cannot search if disabled
+    test('cannot search if disabled', () => {
+      render(<DataTable data={users} fields={fields} />);
+      const searchBar = screen.queryByTestId("search-bar");
+      expect(searchBar).toBe(null);      
+    });
   });
 });

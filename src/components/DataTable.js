@@ -1,5 +1,6 @@
 import React from 'react';
 import { sortByField } from '../helpers/sortByField';
+import { filterBySearch } from '../helpers/filterBySearch';
 
 /**
  * Data Table
@@ -19,22 +20,9 @@ function DataTable(props) {
     setSearchTerm(event.target.value);
   }
 
-
-  function filterByTerm(myData, myFields, myTerm) {
-    if (myTerm.length === 0) {
-      return myData;
-    }
-
-    return myData.filter(item =>
-      myFields.filter(field =>
-        item[field].toString().toLowerCase().includes(myTerm)
-      ).length > 0 ? item : null
-    );
-  }
-
   React.useEffect(() => {
     const term = searchTerm.toLowerCase();
-    const results = filterByTerm(data, fields, term);
+    const results = filterBySearch(data, fields, term);
     setSearchResults(results);
   }, [searchTerm]);
 
