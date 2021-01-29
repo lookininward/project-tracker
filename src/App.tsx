@@ -1,5 +1,5 @@
 import React from "react";
-import './App.css';
+import './App.scss';
 import DataTable from './components/DataTable';
 import data from './assets/data';
 import { User } from './models/user';
