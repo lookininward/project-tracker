@@ -33,6 +33,11 @@ const fields = Object.keys(users[0]);
 const animalFields = Object.keys(animals[0]);
 const gameFields = Object.keys(games[0]);
 
+interface Item {
+  id: any,
+  [key: string]: number | string,
+}
+
 beforeEach(() => {
   document.body.innerHTML = "";
 });
@@ -44,10 +49,10 @@ describe('renders table data', () => {
     ['game', games, gameFields],
   ]).describe('renders table headers', (dataType, propsData, propsFields) => {
     test(`renders ${propsFields.length} headers for ${dataType} data`, () => {
-      render(<DataTable data={propsData} fields={propsFields} enableSort={true} />);
+      render(<DataTable data={propsData} fields={propsFields} enableSort={true} enableSearch={false} />);
       const tableHeaders = screen.getAllByTestId("table-header");
       expect(tableHeaders.length).toBe(propsFields.length);
-      propsFields.forEach(field => expect(screen.getByText(field)).toBeInTheDocument());
+      propsFields.forEach((field: string) => expect(screen.getByText(field)).toBeInTheDocument());
       tableHeaders.forEach((header, idx) => expect(header.textContent).toContain(propsFields[idx]));
     });
   });
@@ -58,10 +63,10 @@ describe('renders table data', () => {
     ['game', games, gameFields],
   ]).describe('renders table rows', (dataType, propsData, propsFields) => {
     test(`renders ${propsData.length} rows of ${dataType} data`, () => {
-      render(<DataTable data={propsData} fields={propsFields} enableSort={true} />);
+      render(<DataTable data={propsData} fields={propsFields} enableSort={true} enableSearch={false} />);
       const tableRows = screen.getAllByTestId("table-row");
       expect(tableRows.length).toBe(propsData.length);
-      propsData.forEach(function (item) {
+      propsData.forEach((item: Item) => {
         expect(screen.getByText(item.id)).toBeInTheDocument();
       });
 
@@ -77,13 +82,13 @@ describe('renders table data', () => {
 });
 
 test('renders search bar if enabled', () => {
-  render(<DataTable data={users} fields={fields} enableSearch={true} />);
+  render(<DataTable data={users} fields={fields} enableSort={false} enableSearch={true} />);
   const searchBar = screen.getByTestId("search-bar");
   expect(searchBar).toBeInTheDocument();
 });
 
 test('hides search bar if disabled', () => {
-  render(<DataTable data={users} fields={fields} enableSearch={false} />);
+  render(<DataTable data={users} fields={fields} enableSort={false} enableSearch={false} />);
   const searchBar = screen.queryByTestId("search-bar");
   expect(searchBar).not.toBeInTheDocument();
 });
@@ -95,9 +100,9 @@ describe('can sort data', () => {
     ['game', games, gameFields, 3],
   ]).describe('can sort data two ways by field', (dataType, propsData, propsFields) => {
     each(
-      propsFields.map((field, idx) => [field, idx === 0 ? true : false])
+      propsFields.map((field: string, idx: number) => [field, idx === 0 ? true : false])
     ).test(`can sort ${dataType} by '%s'`, (sortField, shouldDescend) => {
-      render(<DataTable data={propsData} fields={propsFields} enableSort={true} />);
+      render(<DataTable data={propsData} fields={propsFields} enableSort={true} enableSearch={false} />);
       const field = screen.getByText(sortField);
 
       act(() => {
@@ -105,7 +110,6 @@ describe('can sort data', () => {
       });
 
       let tableRows = screen.getAllByTestId("table-row");
-
       tableRows.forEach((row, rowIdx) => {
         const tableCells = row.childNodes;
         tableCells.forEach((cell, cellIdx) => {
@@ -133,7 +137,7 @@ describe('can sort data', () => {
   });
 
   test('cannot sort if disabled', () => {
-    render(<DataTable data={users} fields={fields} />);
+    render(<DataTable data={users} fields={fields} enableSort={false} enableSearch={false} />);
     const field = screen.getByText(fields[0]);
 
     act(() => {
@@ -159,18 +163,18 @@ describe('can filter data by search', () => {
   ]).describe('can search data across all fields', (dataType, propsData, propsFields) => {
     each(
       [].concat.apply([],
-        propsFields.map(field =>
-          propsData.map(item => [
+        propsFields.map((field: string) =>
+          propsData.map((item: Item) => [
             item[field].toString(), // searchTerm
-            propsData.filter(obj => // expectedNumRows matching searchTerm
-              Object.values(obj).map(i => i.toString()).join().includes(item[field].toString())
+            propsData.filter((obj: any) => // expectedNumRows matching searchTerm
+              Object.values(obj).map((i: any) => i.toString()).join().includes(item[field].toString())
             ).length
           ])
         )
       )
     ).test(`can filter ${dataType} by '%s'`, (searchTerm, expectedNumRows) => {
-      render(<DataTable data={propsData} fields={propsFields} enableSearch={true} />);
-      const searchBar = screen.queryByTestId("search-bar").querySelector("input");
+      render(<DataTable data={propsData} fields={propsFields} enableSort={false} enableSearch={true} />);
+      const searchBar = screen?.queryByTestId("search-bar")?.querySelector("input")!;
       fireEvent.change(searchBar, { target: { value: searchTerm } })
       const tableRows = screen.getAllByTestId("table-row");
       expect(tableRows.length).toBe(expectedNumRows);
@@ -178,8 +182,8 @@ describe('can filter data by search', () => {
   });
 
   test('cannot search if disabled', () => {
-    render(<DataTable data={users} fields={fields} />);
+    render(<DataTable data={users} fields={fields} enableSort={false} enableSearch={false} />);
     const searchBar = screen.queryByTestId("search-bar");
-    expect(searchBar).toBe(null);      
+    expect(searchBar).toBe(null);
   });
 });

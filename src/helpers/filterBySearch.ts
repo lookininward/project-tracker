@@ -5,7 +5,8 @@
  * @param {array} field - fields to sort data across
  * @param {string} searchTerm - string to search by
  */
-export function filterBySearch(data, fields, searchTerm) {
+
+export function filterBySearch(data: any[], fields: string[], searchTerm: string) {
   if (searchTerm.length === 0) {
     return data;
   }

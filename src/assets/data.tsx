@@ -2,7 +2,7 @@ import faker from 'faker';
 
 faker.seed(416);
 
-export default {
+const data = {
    "users": (() => {
       const result = [];
       for (let i = 0; i < 2; i++) {
@@ -40,3 +40,5 @@ export default {
       return result;
    })(),
 }
+
+export default data;
