@@ -1,8 +1,11 @@
 thead td {
   position: relative;
+  cursor: pointer;
 }
 
 .sort-direction {
   position: absolute;
-  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 12px;
 }

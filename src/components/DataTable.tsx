@@ -2,6 +2,8 @@ import React from 'react';
 import './DataTable.scss';
 import { sortByField } from '../helpers/sortByField';
 import { filterBySearch } from '../helpers/filterBySearch';
+import ChevronCompact from './svg/ChevronCompact';
+
 /**
  * Data Table
  * @component
@@ -86,7 +88,10 @@ function DataTable(this: any, props: Props) {
                 {field}
                 {
                   enableSort && field === sortField &&
-                  (isDescending ? <span className='sort-direction'>&#8964;</span> : <span className='sort-direction'>&#8963;</span>)
+                  <ChevronCompact
+                    classNames='sort-direction'
+                    direction={isDescending ? 'down' : 'up'}
+                  />
                 }
               </td>)}
           </tr>
