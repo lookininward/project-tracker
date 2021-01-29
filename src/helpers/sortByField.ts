@@ -5,7 +5,7 @@
  * @param {string} field - field to sort data by
  * @param {boolean} shouldDescend - sort order
  */
-export function sortByField(data, field, shouldDescend) {
+export function sortByField(data: any[], field: string, shouldDescend: boolean) {
   return data.sort((a, b) => {
     if (a[field].toString() === b[field].toString()) {
       const aIdx = data.indexOf(a);

@@ -10,19 +10,33 @@ import { filterBySearch } from '../helpers/filterBySearch';
  * @param {boolean} enableSearch - enable the search and filter input
  * @param {boolean} enableSort - enable two-way, per field sort
  */
-function DataTable(props) {
+
+interface Props {
+  data: Array<Object>,
+  fields: Array<string>,
+  enableSort: boolean,
+  enableSearch: boolean,
+}
+
+function DataTable(this: any, props: Props) {
   const { data = [], fields = [], enableSort = false, enableSearch = false } = props;
-  const [sortField, setSortField] = React.useState(fields[0]);
+
+  interface Item {
+    id: any,
+    index: string,
+    [key: string]: number | string,
+  }
+  const [sortField, setSortField] = React.useState<any>(fields[0]);
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [searchResults, setSearchResults] = React.useState([]);
+  const [searchResults, setSearchResults] = React.useState<Item[]>([]);
   const [isDescending, setSortOrder] = React.useState(false);
-  const handleChange = event => {
+  const handleChange = (event: any) => {
     setSearchTerm(event.target.value);
   }
 
   React.useEffect(() => {
     const term = searchTerm.toLowerCase();
-    const results = filterBySearch(data, fields, term);
+    const results = sortByField(filterBySearch(data, fields, term), sortField, isDescending);
     setSearchResults(results);
   }, [searchTerm]);
 
@@ -52,7 +66,7 @@ function DataTable(props) {
    * @function
    * @param {string} field - field to sort data by
    */
-  function sortData(field) {
+  function sortData(field: any) {
     if (!enableSort) {
       return;
     }
@@ -68,7 +82,7 @@ function DataTable(props) {
    * @function
    * @param {string} field - field to determine if sorting by column; direction
    */
-  function columnStatus(field) {
+  function columnStatus(field: any) {
     if (enableSort && field === sortField) {
       return isDescending ? <span>&#8964;</span> : <span>&#8963;</span>
     }
@@ -90,16 +104,18 @@ function DataTable(props) {
             {fields.map((field, idx) =>
               <th
                 onClick={sortData.bind(this, field)}
-                data-testid="table-header" key={`field-${idx}`}>
+                data-testid="table-header"
+                key={`field-${idx}`}
+              >
                 {field} {columnStatus(field)}
               </th>)}
           </tr>
         </thead>
         <tbody>
           {
-            searchResults.map(item =>
+            searchResults.map((item: Item) =>
               <tr data-testid="table-row" key={item.id}>
-                {fields.map((field, idx) => <td data-testid="table-cell" key={`td-${item.id}-${idx}`}>{item[field]} </td>)}
+                {fields.map((field: any, idx) => <td data-testid="table-cell" key={`td-${item.id}-${idx}`}>{item[field]} </td>)}
               </tr>
             )
           }
