@@ -16,20 +16,22 @@ const fields = users[0].fields;
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="App-header p-2 navbar sticky-top">
         <h1>Project Tracker</h1>
       </header>
-      <div>
-        <div style={{ textAlign: "left" }}>
-          <h2>Personnel</h2>
-          <p>Search and select organization personnel, and manage roles.</p>
+      <div className="p-4">
+        <div className="card p-4">
+          <div className="card-title text-start">
+            <h2 className="display-6">Personnel</h2>
+            <p className="lead text-muted">Search and select organization personnel, and manage roles.</p>
+          </div>
+          <DataTable
+            data={users}
+            fields={fields}
+            enableSearch={true}
+            enableSort={true}
+          />
         </div>
-        <DataTable
-          data={users}
-          fields={fields}
-          enableSearch={true}
-          enableSort={true}
-        />
       </div>
     </div>
   );
