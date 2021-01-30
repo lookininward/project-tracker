@@ -8,8 +8,8 @@ interface Props {
 function Topbar(props: Props) {
   return (
     <div className="topbar">
-      <SVGSideBar toggleSidebar={props.toggleSidebar} />
-      <span className="brand-header">
+      <SVGSideBar onClick={props.toggleSidebar} />
+      <span data-testid="topbar-header">
         Project Tracker
       </span>
     </div>

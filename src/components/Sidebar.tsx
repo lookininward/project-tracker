@@ -7,12 +7,12 @@ interface Props {
 function Sidebar(props: Props) {
   const { isOpenSideBar } = props;
   return (
-    <nav id="sidebar" className={`sidebar ${isOpenSideBar && 'active p-2' }`}>
+    <nav data-testid="sidebar" className={`sidebar ${isOpenSideBar && 'active p-2' }`}>
       {
         isOpenSideBar &&
-        <div>
+        <div data-testid="sidebar-content">
           <div className="sidebar-brand">
-            <span className="brand-header">
+            <span>
               Project Tracker
             </span>
           </div>
