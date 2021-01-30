@@ -21,7 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -44,6 +45,7 @@
   "devDependencies": {
     "@types/faker": "^5.1.5",
     "@types/react": "^17.0.0",
+    "cypress": "^6.3.0",
     "faker": "^5.2.0"
   }
 }
