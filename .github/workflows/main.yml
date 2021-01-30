@@ -43,4 +43,5 @@ jobs:
       - uses: actions/checkout@v1
       - uses: cypress-io/github-action@v2
         with:
+          start: yarn run start
           browser: chrome
