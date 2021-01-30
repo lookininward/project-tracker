@@ -1,6 +1,8 @@
 import React from 'react';
+import './DataTable.scss';
 import { sortByField } from '../helpers/sortByField';
 import { filterBySearch } from '../helpers/filterBySearch';
+import ChevronCompact from './svg/ChevronCompact';
 
 /**
  * Data Table
@@ -38,35 +40,14 @@ function DataTable(this: any, props: Props) {
     const term = searchTerm.toLowerCase();
     const results = sortByField(filterBySearch(data, fields, term), sortField, isDescending);
     setSearchResults(results);
-  }, [searchTerm]);
-
-  const searchBar = () => {
-    if (enableSearch) {
-      return <div
-        data-testid="search-bar"
-        style={{
-          display: "flex",
-          width: "100%",
-          height: "50px",
-        }}
-      >
-        <input
-          style={{ width: "100%", padding: "20px", fontSize: "20px" }}
-          type="search"
-          placeholder="Search Personnel"
-          value={searchTerm}
-          onChange={handleChange}
-        ></input>
-      </div>
-    }
-  }
+  }, [searchTerm, data, fields, sortField, isDescending]);
 
   /**
    * Sort Data
    * @function
    * @param {string} field - field to sort data by
    */
-  function sortData(field: any) {
+  function sortData(field: string) {
     if (!enableSort) {
       return;
     }
@@ -77,45 +58,49 @@ function DataTable(this: any, props: Props) {
     setSearchResults(results);
   }
 
-  /**
-   * Column Status
-   * @function
-   * @param {string} field - field to determine if sorting by column; direction
-   */
-  function columnStatus(field: any) {
-    if (enableSort && field === sortField) {
-      return isDescending ? <span>&#8964;</span> : <span>&#8963;</span>
-    }
-  }
-
   return (
     <div>
-      <h1>Data Table Component</h1>
-      {searchBar()}
-
-      <br />
-      sortField: {sortField}<br />
-      isDescending: {isDescending ? ('True') : ('False')}
-      <br />
-
-      <table>
-        <thead>
+      {
+        enableSearch &&
+        <div
+          data-testid="search-bar"
+          className="mb-3"
+        >
+          <input
+            className="form-control form-control-lg"
+            type="search"
+            placeholder="Search Personnel"
+            value={searchTerm}
+            onChange={handleChange}
+          ></input>
+        </div>
+      }
+      <table className="table table-hover">
+        <thead className="user-select-none">
           <tr>
             {fields.map((field, idx) =>
-              <th
-                onClick={sortData.bind(this, field)}
+              <td
+                className={`table-light ${sortField === field ? 'table-active' : 'table-light'}`}
                 data-testid="table-header"
                 key={`field-${idx}`}
+                onClick={sortData.bind(this, field)}
               >
-                {field} {columnStatus(field)}
-              </th>)}
+                {field}
+                {
+                  enableSort && field === sortField &&
+                  <ChevronCompact
+                    classNames='sort-direction'
+                    direction={isDescending ? 'down' : 'up'}
+                  />
+                }
+              </td>)}
           </tr>
         </thead>
         <tbody>
           {
             searchResults.map((item: Item) =>
               <tr data-testid="table-row" key={item.id}>
-                {fields.map((field: any, idx) => <td data-testid="table-cell" key={`td-${item.id}-${idx}`}>{item[field]} </td>)}
+                {fields.map((field: string, idx) => <td data-testid="table-cell" key={`td-${item.id}-${idx}`}>{item[field]}</td>)}
               </tr>
             )
           }

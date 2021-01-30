@@ -1,0 +1,32 @@
+import './Sidebar.scss';
+
+interface Props {
+  isOpenSideBar: Boolean
+}
+
+function Sidebar(props: Props) {
+  const { isOpenSideBar } = props;
+  return (
+    <nav data-testid="sidebar" className={`sidebar ${isOpenSideBar && 'active p-2' }`}>
+      {
+        isOpenSideBar &&
+        <div data-testid="sidebar-content">
+          <div className="sidebar-brand">
+            <span>
+              Project Tracker
+            </span>
+          </div>
+          <ul className="list-unstyled text-start">
+            <li>Home</li>
+            <li>Tickets</li>
+            <li>Projects</li>
+            <li>Users</li>
+            <li>Account</li>
+            <li>About</li>
+          </ul>
+        </div>}
+    </nav>
+  )
+}
+
+export default Sidebar;
