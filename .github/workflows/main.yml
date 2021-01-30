@@ -27,7 +27,6 @@ jobs:
   # e2e Tests
   e2e-tests:
     runs-on: ubuntu-latest
-    name: Run tests in Chrome
     steps:
       - uses: actions/checkout@v1
       - uses: cypress-io/github-action@v2
