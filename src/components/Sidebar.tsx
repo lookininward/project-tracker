@@ -1,3 +1,5 @@
+import './Sidebar.scss';
+
 interface Props {
   isOpenSideBar: Boolean
 }
@@ -5,7 +7,7 @@ interface Props {
 function Sidebar(props: Props) {
   const { isOpenSideBar } = props;
   return (
-    <nav id="sidebar" className={`sidebar ${isOpenSideBar ? 'active p-2' : ''}`}>
+    <nav id="sidebar" className={`sidebar ${isOpenSideBar && 'active p-2' }`}>
       {
         isOpenSideBar &&
         <div>

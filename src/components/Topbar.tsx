@@ -1,4 +1,5 @@
-import SVG_Sidebar from './svg/SVG_Sidebar';
+import './Topbar.scss';
+import SVGSideBar from './svg/Sidebar';
 
 interface Props {
   toggleSidebar: () => void
@@ -7,7 +8,7 @@ interface Props {
 function Topbar(props: Props) {
   return (
     <div className="topbar">
-      <SVG_Sidebar toggleSidebar={props.toggleSidebar} />
+      <SVGSideBar toggleSidebar={props.toggleSidebar} />
       <span className="brand-header">
         Project Tracker
       </span>

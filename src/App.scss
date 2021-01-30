@@ -1,4 +1,5 @@
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
+
 body {
   overflow: hidden;
 }
@@ -15,67 +16,7 @@ body {
   background-color: #f7f9fc;
 }
 
-.sidebar {
-  height: 100vh;
-  z-index: 9;
-  width: 0;
-  transition: all .4s;
-
-  color: #fff;
-  background-color: #293042;
-
-  &.active {
-    width: 260px;
-    text-align: center;
-    transition: all .4s;
-  }
-
-  ul li {
-    margin: 10px 4px;
-    padding: 6px 10px;
-    color: #e9ecef;
-    cursor: pointer;
-    border-radius: 5px;
-
-    &:hover {
-      color: #3f80ea;
-      background-color: rgba($color: #fff, $alpha: 1.0);
-    }
-  }
-}
-
-
-.sidebar-brand {
-  position: relative;
-  top: 0;
-  left: 0;
-  border: 1px solid #fff;
-  border-radius: 5px;
-  padding: 4px;
-  color: #fff;
-  cursor: pointer;
-  white-space: nowrap;
-  margin: 20px 4px;
-}
-
-.topbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  background-color: #ffffff;
-  box-shadow: 0 0 2rem 0 rgba(41,48,66,.1);
-  padding: 10px 26px;
-  width: calc(100vw);
-}
-
-
-.bi-window-sidebar {
-  width: 24px;
-  height: 24px;
-  margin-right: 16px;
-  cursor: pointer;
-}
-
+// Bootstrap
 .card {
   box-shadow: 0 0 0.875rem 0 rgba(41,48,66,.05);
   overflow-x: scroll;

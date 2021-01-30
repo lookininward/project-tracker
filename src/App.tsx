@@ -1,9 +1,9 @@
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 import React from "react";
 import './App.scss';
-import DataTable from './components/DataTable';
 import Sidebar from './components/Sidebar';
 import Topbar from './components/Topbar';
+import DataTable from './components/DataTable';
 import data from './assets/data';
 import { User } from './models/user';
 

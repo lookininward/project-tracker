@@ -1,0 +1,16 @@
+.topbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background-color: #ffffff;
+  box-shadow: 0 0 2rem 0 rgba(41,48,66,.1);
+  padding: 10px 26px;
+  width: calc(100vw);
+}
+
+.bi-window-sidebar {
+  width: 24px;
+  height: 24px;
+  margin-right: 16px;
+  cursor: pointer;
+}

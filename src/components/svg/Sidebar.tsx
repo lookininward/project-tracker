@@ -1,9 +1,9 @@
 interface Props {
   classNames?: string,
-  toggleSidebar: () => void
+  toggleSidebar?: () => void
 }
 
-function SVG_Sidebar(this:any, props: Props) {
+function SVGSideBar(this:any, props: Props) {
   const { classNames } = props;
   return (
     <svg onClick={props.toggleSidebar} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={`bi bi-window-sidebar ${classNames}`} viewBox="0 0 16 16">
@@ -13,4 +13,4 @@ function SVG_Sidebar(this:any, props: Props) {
   )
 }
 
-export default SVG_Sidebar;
+export default SVGSideBar;
