@@ -1,5 +1,5 @@
 {
-  "name": "bug-tracker",
+  "name": "project-tracker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
