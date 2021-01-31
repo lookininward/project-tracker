@@ -1,4 +1,5 @@
 import './Sidebar.scss';
+import { Link } from "react-router-dom";
 
 interface Props {
   isOpenSideBar: Boolean
@@ -7,7 +8,7 @@ interface Props {
 function Sidebar(props: Props) {
   const { isOpenSideBar } = props;
   return (
-    <nav data-testid="sidebar" className={`sidebar ${isOpenSideBar && 'active p-2' }`}>
+    <nav data-testid="sidebar" className={`sidebar ${isOpenSideBar && 'active p-2'}`}>
       {
         isOpenSideBar &&
         <div data-testid="sidebar-content">
@@ -17,12 +18,15 @@ function Sidebar(props: Props) {
             </span>
           </div>
           <ul className="list-unstyled text-start">
-            <li>Home</li>
-            <li>Tickets</li>
-            <li>Projects</li>
-            <li>Users</li>
-            <li>Account</li>
-            <li>About</li>
+            <li>
+              <Link to="/workflow">Workflow</Link>
+            </li>
+            <li>
+              <Link data-testid="projects" to="/projects">Projects</Link>
+            </li>
+            <li>
+              <Link data-testid="users" to="/users">Users</Link>
+            </li>
           </ul>
         </div>}
     </nav>

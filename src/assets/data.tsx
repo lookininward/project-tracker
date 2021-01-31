@@ -1,8 +1,33 @@
 import faker from 'faker';
 
-faker.seed(416);
+// faker.seed(416);
 
 const data = {
+   "tickets": (() => {
+      const result = [];
+      for (let i = 0; i < 200; i++) {
+         result.push({
+            "id": `${faker.random.uuid()}${faker.random.number()}`,
+            "category": faker.helpers.randomize([
+               'feature',
+               'bug',
+               'chore',
+               // 'unknown',
+            ]),
+            "title": faker.lorem.sentences(),
+            "color": faker.internet.color(),
+            "owners": ['test'],
+            "stage": faker.helpers.randomize([
+               'Unscheduled',
+               'In Progress',
+               'Ready for Development',
+               'Ready for Review',
+               'Complete'
+            ])
+         })
+      }
+      return result;
+   })(),
    "users": (() => {
       const result = [];
       for (let i = 0; i < 2; i++) {

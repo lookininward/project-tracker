@@ -1,0 +1,71 @@
+.dashboard {
+  height: calc(100vh - 50px);
+  overflow: hidden;
+}
+
+.workflow-section {
+  overflow: hidden;
+}
+
+.workflow-board-wrapper {
+  .workflow-section {
+    height: calc(100vh - 130px);
+  }
+}
+
+.workflow-board {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.workflow-column {
+  width: 320px;
+  min-width: 320px;
+  margin-right: 20px;
+  overflow: hidden;
+  
+  .workflow-column-body {
+    height: calc(100% - 30px);
+    overflow-x: scroll;
+
+    .card {
+      cursor: pointer;
+      text-align: left;
+      width: 300px;
+      margin: 10px 0;
+      border-left: 6px solid #512acf;
+
+      right: 0;
+      transition: all .2s;
+      &:hover {
+        right: -6px;
+      }
+
+      p {
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .card-footer {
+        font-size: 12px;
+      }
+    }
+
+  }  
+}
+
+.story {
+  color: #512acf;
+}
+
+.feature {
+  color: #c9a61d;
+}
+
+.bug {
+  color: #a00808;
+}
+
+.btn {
+  white-space: nowrap;
+}
