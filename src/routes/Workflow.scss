@@ -9,7 +9,7 @@
 
 .workflow-board-wrapper {
   .workflow-section {
-    height: calc(100vh - 276px - 70px);
+    height: calc(100vh - 130px);
   }
 }
 
@@ -64,4 +64,8 @@
 
 .bug {
   color: #a00808;
+}
+
+.btn {
+  white-space: nowrap;
 }

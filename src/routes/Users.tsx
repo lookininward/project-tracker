@@ -1,4 +1,4 @@
-import './Dashboard.scss';
+import './Workflow.scss';
 import data from '../assets/data';
 import { User } from '../models/user';
 import DataTable from '../components/DataTable';

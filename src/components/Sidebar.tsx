@@ -19,15 +19,14 @@ function Sidebar(props: Props) {
           </div>
           <ul className="list-unstyled text-start">
             <li>
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/workflow">Workflow</Link>
             </li>
-            <li>Tickets</li>
-            <li>Projects</li>
             <li>
-            <Link to="/users">Users</Link>
+              <Link to="/projects">Projects</Link>
             </li>
-            <li>Account</li>
-            <li>About</li>
+            <li>
+              <Link to="/users">Users</Link>
+            </li>
           </ul>
         </div>}
     </nav>
