@@ -1,0 +1,50 @@
+.dashboard {
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+.workflow-section {
+  overflow: hidden;
+}
+
+.workflow-board {
+  display: flex;
+  max-height: 500px;
+  height: inherit;
+  overflow-x: scroll;
+}
+
+.workflow-column {
+  width: 320px;
+  min-width: 320px;
+  margin-right: 20px;
+  overflow: hidden;
+  
+  .workflow-column-body {
+    height: 100%;
+    overflow-x: scroll;
+
+    .card {
+      text-align: left;
+      width: 300px;
+      margin: 10px 0;
+
+      p {
+        font-size: 14px;
+      }
+    }
+
+  }  
+}
+
+.story {
+  color: #512acf;
+}
+
+.feature {
+  color: #c9a61d;
+}
+
+.bug {
+  color: #a00808;
+}

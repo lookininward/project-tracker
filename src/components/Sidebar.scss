@@ -23,7 +23,16 @@
     &:hover {
       color: #3f80ea;
       background-color: rgba($color: #fff, $alpha: 1.0);
+
+      a {
+        color: #3f80ea;
+      }
     }
+  }
+
+  a {
+    color: #e9ecef;
+    text-decoration: none;
   }
 }
 
