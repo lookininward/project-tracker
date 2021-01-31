@@ -1,5 +1,5 @@
 .dashboard {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 50px);
   overflow: hidden;
 }
 
@@ -7,10 +7,14 @@
   overflow: hidden;
 }
 
+.workflow-board-wrapper {
+  .workflow-section {
+    height: calc(100vh - 276px - 70px);
+  }
+}
+
 .workflow-board {
   display: flex;
-  max-height: 500px;
-  height: inherit;
   overflow-x: scroll;
 }
 
@@ -21,16 +25,29 @@
   overflow: hidden;
   
   .workflow-column-body {
-    height: 100%;
+    height: calc(100% - 30px);
     overflow-x: scroll;
 
     .card {
+      cursor: pointer;
       text-align: left;
       width: 300px;
       margin: 10px 0;
+      border-left: 6px solid #512acf;
+
+      right: 0;
+      transition: all .2s;
+      &:hover {
+        right: -6px;
+      }
 
       p {
         font-size: 14px;
+        font-weight: 500;
+      }
+
+      .card-footer {
+        font-size: 12px;
       }
     }
 
