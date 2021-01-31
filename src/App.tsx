@@ -47,7 +47,7 @@ function App() {
           <Topbar toggleSidebar={toggleSidebar} />
           <Switch>
             <Route>
-              <Redirect to="/Workflow" />
+              <Redirect to="/workflow" />
               <Home />
             </Route>
           </Switch>

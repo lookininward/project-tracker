@@ -22,10 +22,10 @@ function Sidebar(props: Props) {
               <Link to="/workflow">Workflow</Link>
             </li>
             <li>
-              <Link to="/projects">Projects</Link>
+              <Link data-testid="projects" to="/projects">Projects</Link>
             </li>
             <li>
-              <Link to="/users">Users</Link>
+              <Link data-testid="users" to="/users">Users</Link>
             </li>
           </ul>
         </div>}
