@@ -1,5 +1,6 @@
 import './Workflow.scss';
-import data from '../assets/data';
+import { useSelector } from "react-redux";
+import { useFirestoreConnect } from "react-redux-firebase";
 import { Ticket } from '../models/ticket';
 import SVGStory from '../components/svg/Story';
 import SVGFeature from '../components/svg/Feature';
@@ -29,17 +30,13 @@ const stages = [
   },
 ];
 
-const tickets = data['tickets'].map(ticket => new Ticket({
-  id: ticket.id,
-  category: ticket.category,
-  title: ticket.title,
-  color: ticket.color,
-  // owners: ticket.owners,
-  stage: ticket.stage,
-}));
-
 function Workflow() {
+  useFirestoreConnect({
+    collection: "/tickets",
+    storeAs: "tickets"
+  });
 
+  const tickets = useSelector((state: any) => state.firestore.data.tickets);
   return (
     <div className="dashboard pb-5">
 
@@ -66,7 +63,15 @@ function Workflow() {
                 <h6 className="text-start">{stage.title}</h6>
                 <div className="workflow-column-body">
                   {
-                    tickets.filter(ticket => ticket.stage === stage.title).map(ticket => {
+                    tickets &&
+                    Object.values(tickets).map((ticket: any) => new Ticket({
+                      id: ticket.id,
+                      category: ticket.category,
+                      title: ticket.title,
+                      color: ticket.color,
+                      // owners: ticket.owners,
+                      stage: ticket.stage,
+                    })).filter((ticket: any) => ticket.stage === stage.title).map((ticket: any) => {
                       return <div key={ticket.id} className="card text-dark bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ borderLeft: `6px solid ${ticket.color}` }}>
                         <div className="card-body">
                           <p className="card-text">{ticket.title}</p>
