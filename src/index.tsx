@@ -4,11 +4,12 @@ import ReactDOM from 'react-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import reduxThunk from 'redux-thunk';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
-import { rootReducer } from './ducks/reducers';
+import { rootReducer } from './store/reducers/index';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
@@ -32,7 +33,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.firestore();
 
 const initialState = {};
-const store = createStore(rootReducer, initialState);
+const store = createStore(rootReducer, initialState, applyMiddleware(reduxThunk));
 
 const rrfProps = {
   firebase,

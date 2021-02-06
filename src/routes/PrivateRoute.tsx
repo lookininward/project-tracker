@@ -7,21 +7,19 @@ import { useSelector } from 'react-redux';
 
 const Home = ({ children, ...remainingProps }: any) => {
   const auth = useSelector((state: any) => state.firebase.auth);
-
   return (
     <Route
       {...remainingProps}
       render={({ location }: any) =>
         isLoaded(auth) && !isEmpty(auth) ? (
           children
-        ) : (
-            <Redirect
-              to={{
-                pathname: "/",
-                state: { from: location }
-              }}
-            />
-          )
+        ) :
+          <Redirect
+            to={{
+              pathname: "/sign-in",
+              state: { from: location }
+            }}
+          />
       }
     />
   );

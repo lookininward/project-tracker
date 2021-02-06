@@ -1,7 +1,15 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { signOut } from 'store/actions';
+
 
 function Account() {
   const profile = useSelector((state: any) => state.firebase.profile);
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(signOut());
+  }
+
   return (
     <div className="p-4">
       <div className="card p-4 mb-3">
@@ -18,7 +26,7 @@ function Account() {
             <img src={profile.avatarUrl} />
             <div>{profile.displayName}</div>
             <div>{profile.email}</div>
-            <button className="btn btn-danger">Sign Out</button>
+            <button onClick={handleClick} className="btn btn-danger">Sign Out</button>
           </div>
         </div>
       </div>
