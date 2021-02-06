@@ -1,16 +1,14 @@
-import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './Topbar.scss';
 import SVGSideBar from './svg/Sidebar';
+import { toggleSidebar } from 'store/actions';
 
-interface Props {
-  toggleSidebar: () => void
-}
-
-function Topbar(props: Props) {
+function Topbar({ isOpenSideBar, onTogglePressed }: any) {
   return (
     <div className="topbar">
       <div>
-        <SVGSideBar onClick={props.toggleSidebar} />
+        <SVGSideBar onClick={() => onTogglePressed()} />
         <span data-testid="topbar-header">
           Project Tracker
         </span>
@@ -48,4 +46,12 @@ function Topbar(props: Props) {
   )
 }
 
-export default Topbar;
+const mapStateToProps = (state: any) => ({
+  isOpenSideBar: state.sidebar.isOpenSideBar,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  onTogglePressed: () => dispatch(toggleSidebar)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Topbar);

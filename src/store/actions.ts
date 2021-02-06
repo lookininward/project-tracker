@@ -8,3 +8,6 @@ export const signOut = () => (dispatch: any, getState: any) => {
     })
   })
 };
+
+export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
+export const toggleSidebar = (dispatch: any) => dispatch({ type: TOGGLE_SIDEBAR });

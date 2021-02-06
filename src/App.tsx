@@ -10,15 +10,8 @@ import PrivateRoute from './routes/PrivateRoute';
 import Home from './routes/Home';
 import SignIn from './routes/SignIn';
 
-
 function App() {
   const auth = useSelector((state: any) => state.firebase.auth);
-
-  const [isOpenSideBar, setSideBarState] = React.useState<Boolean>(false);
-  function toggleSidebar() {
-    setSideBarState(!isOpenSideBar);
-  }
-
   return (
     <div className="App">
       <Switch>
@@ -39,9 +32,9 @@ function App() {
             <Switch>
               <PrivateRoute path="/home">
                 <div className="home">
-                  <Sidebar isOpenSideBar={isOpenSideBar} />
+                  <Sidebar />
                   <div className="app-body">
-                    <Topbar toggleSidebar={toggleSidebar} />
+                    <Topbar />
                     <Home />
                   </div>
                 </div>
@@ -52,7 +45,6 @@ function App() {
             </Switch>
         }
       </Switch>
-
     </div >
   );
 }
