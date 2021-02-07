@@ -30,8 +30,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: cypress-io/github-action@v2
-        with:
-          env: true
         env:
           CYPRESS_TEST_UID: ${{ secrets.TEST_UID }}
           CYPRESS_FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
