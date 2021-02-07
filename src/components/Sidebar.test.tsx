@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Sidebar from './Sidebar';
+import { Sidebar } from './Sidebar';
 
 describe('sidebar', () => {
   test('renders inactive sidebar when set to inactive', () => {
     render(
       <MemoryRouter>
-        <Sidebar isOpenSideBar={false} />
+        <Sidebar />
       </MemoryRouter>
     );
     const sidebar = screen.getByTestId("sidebar");

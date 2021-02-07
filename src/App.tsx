@@ -10,13 +10,13 @@ import PrivateRoute from './routes/PrivateRoute';
 import Home from './routes/Home';
 import SignIn from './routes/SignIn';
 
-function App() {
+export function App() {
   const auth = useSelector((state: any) => state.firebase.auth);
   return (
-    <div className="App">
-      <Switch>
-        {
-          !isLoaded(auth) ?
+    <div data-testid="app" className="App">
+      {
+        !isLoaded(auth) ?
+          <Switch>
             <Route
               exact
               path="/"
@@ -28,23 +28,23 @@ function App() {
                 )
               }}
             />
-            :
-            <Switch>
-              <PrivateRoute path="/home">
-                <div className="home">
-                  <Sidebar />
-                  <div className="app-body">
-                    <Topbar />
-                    <Home />
-                  </div>
+          </Switch>
+          :
+          <Switch>
+            <PrivateRoute path="/home">
+              <div className="home">
+                <Sidebar />
+                <div className="app-body">
+                  <Topbar />
+                  <Home />
                 </div>
-              </PrivateRoute>
-              <Route path="/sign-in">
-                <SignIn />
-              </Route>
-            </Switch>
-        }
-      </Switch>
+              </div>
+            </PrivateRoute>
+            <Route path="/sign-in">
+              <SignIn />
+            </Route>
+          </Switch>
+      }
     </div >
   );
 }

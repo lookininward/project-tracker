@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import './Sidebar.scss';
 import { Link } from "react-router-dom";
+import './Sidebar.scss';
 
-function Sidebar({ isOpenSideBar }: any) {
+export function Sidebar({ isOpenSideBar }: any) {
   return (
     <nav data-testid="sidebar" className={`sidebar ${isOpenSideBar && 'active p-2'}`}>
       {

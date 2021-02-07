@@ -6,9 +6,8 @@ import './Topbar.scss';
 import SVGSideBar from './svg/Sidebar';
 import { toggleSidebar } from 'store/actions';
 
-function Topbar({ isOpenSideBar, onTogglePressed }: any) {
+export function Topbar({ isOpenSideBar, onTogglePressed }: any) {
   const [titleInput, setTitle] = React.useState();
-
 
   const firestore = useFirestore();
 
@@ -92,7 +91,7 @@ function Topbar({ isOpenSideBar, onTogglePressed }: any) {
                 <div className="mb-3">
                   <label htmlFor="categoryInput" className="form-label">Category</label>
                   <select id="categoryInput" className="form-select" aria-label="Default select example">
-                    <option selected>Feature</option>
+                    <option defaultValue="Feature">Feature</option>
                     <option value="1">Bug</option>
                     <option value="2">Chore</option>
                     <option value="3">Unknown</option>
@@ -102,7 +101,7 @@ function Topbar({ isOpenSideBar, onTogglePressed }: any) {
                 <div className="mb-3">
                   <label htmlFor="stageInput" className="form-label">Stage</label>
                   <select id="stageInput " className="form-select" aria-label="Default select example">
-                    <option selected>Unscheduled</option>
+                    <option defaultValue="Unscheduled">Unscheduled</option>
                     <option value="1">Development</option>
                     <option value="2">In Progress</option>
                     <option value="3">Complete</option>

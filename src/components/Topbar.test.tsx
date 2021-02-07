@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Topbar from './Topbar';
+import { Topbar } from './Topbar';
 
 describe('topbar', () => {
   test('renders sidebar toggle and header', () => {
     render(
       <MemoryRouter>
-        <Topbar toggleSidebar={jest.fn()} />
+        <Topbar />
       </MemoryRouter>
     );
     const sidebarToggle = screen.getByTestId("SVGSideBar");

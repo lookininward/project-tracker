@@ -26,6 +26,7 @@ const SignIn = () => {
       <div className="card p-4">
         <h2 className="display-6 mb-3">Sign In</h2>
         <button
+          data-testid="signInWithGoogle"
           className="btn btn-primary"
           onClick={(event) => {
             event.preventDefault();
