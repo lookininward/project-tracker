@@ -30,6 +30,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run start
+          browser: chrome
         env:
           CYPRESS_TEST_UID: ${{ secrets.TEST_UID }}
           CYPRESS_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
@@ -40,6 +43,4 @@ jobs:
           CYPRESS_FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           CYPRESS_FIREBASE_MEASUREMENT_ID: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
           SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
-        with:
-          start: yarn run start
-          browser: chrome
+        
