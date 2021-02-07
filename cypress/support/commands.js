@@ -53,5 +53,8 @@ const firebaseConfig = {
   "measurementId": "G-DH1GRBPP9B"
 }
 
+console.log('support/commands');
+console.log(firebaseConfig);
+
 firebase.initializeApp(firebaseConfig);
 attachCustomCommands({ Cypress, cy, firebase });

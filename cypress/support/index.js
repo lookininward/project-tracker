@@ -16,5 +16,7 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 
+console.log('support/index');
+
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
