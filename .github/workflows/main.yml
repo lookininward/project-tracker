@@ -32,7 +32,7 @@ jobs:
       - uses: cypress-io/github-action@v2
         env:
           CYPRESS_TEST_UID: ${{ secrets.TEST_UID }}
-          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+          CYPRESS_FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
           SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
         with:
           start: yarn run start
