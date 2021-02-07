@@ -30,5 +30,9 @@ import 'firebase/database';
 import 'firebase/firestore';
 import { attachCustomCommands } from 'cypress-firebase';
 
+console.log('initializing app');
+console.log(Cypress.env('FIREBASE_CONFIG'));
+
 firebase.initializeApp(Cypress.env('FIREBASE_CONFIG'));
+
 attachCustomCommands({ Cypress, cy, firebase });
