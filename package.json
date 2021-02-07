@@ -53,6 +53,8 @@
     "@types/faker": "^5.1.5",
     "@types/react": "^17.0.0",
     "cypress": "^6.3.0",
-    "faker": "^5.2.0"
+    "cypress-firebase": "^1.8.0",
+    "faker": "^5.2.0",
+    "firebase-admin": "^9.4.2"
   }
 }
