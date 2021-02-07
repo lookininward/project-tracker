@@ -10,49 +10,49 @@ describe('Route: Home', () => {
       cy.contains('Sign In with Google');
     });
 
-    it('Redirects to Workflow route on sign-in', () => {
-      cy.login();
-      cy.url().should('include', '/workflow');
-    });
+    // it('Redirects to Workflow route on sign-in', () => {
+    //   cy.login();
+    //   cy.url().should('include', '/workflow');
+    // });
 
-    afterEach(() => {
-      cy.logout();
-    });
+    // afterEach(() => {
+    //   cy.logout();
+    // });
   });
 
-  describe('Authenticated', () => {
-    beforeEach(() => {
-      cy.visit('http://localhost:3000');
-      cy.login();
-    });
+  // describe('Authenticated', () => {
+  //   beforeEach(() => {
+  //     cy.visit('http://localhost:3000');
+  //     cy.login();
+  //   });
 
-    afterEach(() => {
-      cy.logout();
-    });
+  //   afterEach(() => {
+  //     cy.logout();
+  //   });
 
-    it('Redirects to Workflow route on sign-in', () => {
-      cy.visit('http://localhost:3000');
-      cy.login();
-      cy.url().should('include', '/workflow');
-    });
+  //   it('Redirects to Workflow route on sign-in', () => {
+  //     cy.visit('http://localhost:3000');
+  //     cy.login();
+  //     cy.url().should('include', '/workflow');
+  //   });
 
-    it('can navigate to Projects route', () => {
-      cy.get('[data-testid="SVGSideBar"]').click();
-      cy.get('[data-testid="projects"]').click();
-      cy.url().should('include', '/projects');
-    });
+  //   it('can navigate to Projects route', () => {
+  //     cy.get('[data-testid="SVGSideBar"]').click();
+  //     cy.get('[data-testid="projects"]').click();
+  //     cy.url().should('include', '/projects');
+  //   });
 
-    it('can navigate to Users route', () => {
-      cy.get('[data-testid="SVGSideBar"]').click();
-      cy.get('[data-testid="users"]').click();
-      cy.url().should('include', '/users');
-    });
+  //   it('can navigate to Users route', () => {
+  //     cy.get('[data-testid="SVGSideBar"]').click();
+  //     cy.get('[data-testid="users"]').click();
+  //     cy.url().should('include', '/users');
+  //   });
 
-    it('can navigate to Account route', () => {
-      cy.get('[data-testid="account"]').click();
-      cy.url().should('include', '/account');
-    });
-  });
+  //   it('can navigate to Account route', () => {
+  //     cy.get('[data-testid="account"]').click();
+  //     cy.url().should('include', '/account');
+  //   });
+  // });
 });
 
 // Firestore Tests
