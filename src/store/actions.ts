@@ -11,3 +11,8 @@ export const signOut = () => (dispatch: any, getState: any) => {
 
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
 export const toggleSidebar = (dispatch: any) => dispatch({ type: TOGGLE_SIDEBAR });
+
+
+
+export const CREATE_TICKET = 'CREATE_TICKET';
+export const createTicket = (dispatch: any) => dispatch({ type: CREATE_TICKET });

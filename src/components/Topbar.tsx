@@ -1,10 +1,33 @@
+import React from 'react';
 import { connect } from 'react-redux';
+import { useFirestore } from "react-redux-firebase";
 import { Link } from 'react-router-dom';
 import './Topbar.scss';
 import SVGSideBar from './svg/Sidebar';
 import { toggleSidebar } from 'store/actions';
 
 function Topbar({ isOpenSideBar, onTogglePressed }: any) {
+  const [titleInput, setTitle] = React.useState();
+
+
+  const firestore = useFirestore();
+
+  function handleSubmit(e: any) {
+    createTicket(titleInput)
+    e.preventDefault();
+  }
+
+  function createTicket(titleInput: any) {
+    firestore
+      .collection("/tickets")
+      .add({
+        title: titleInput,
+        color: '#000',
+        category: 'Feature',
+        stage: 'Unscheduled',
+      })
+  }
+
   return (
     <div className="topbar">
       <div>
@@ -15,7 +38,7 @@ function Topbar({ isOpenSideBar, onTogglePressed }: any) {
       </div>
 
       <div className="d-flex">
-        <button type="button" className="btn btn-primary btn-sm me-4 d-flex">Create Ticket</button>
+        <button type="button" className="btn btn-primary btn-sm me-4 d-flex" data-bs-toggle="modal" data-bs-target="#exampleModal">Create Ticket</button>
         <input type="text" id="inputPassword5" className="form-control form-control-sm me-4" />
         <select className="form-select form-select-sm me-4" aria-label="Select Project">
           <option defaultValue="All Projects">All Projects</option>
@@ -42,6 +65,60 @@ function Topbar({ isOpenSideBar, onTogglePressed }: any) {
           </Link>
         </div>
       </div>
+
+      {/* Create Ticket Modal */}
+      <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered text-start">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">Create Ticket</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form onSubmit={(e: any) => handleSubmit(e)}>
+              <div className="modal-body">
+
+
+                <div className="mb-3">
+                  <label htmlFor="exampleFormControlInput1" className="form-label">Title</label>
+                  <input type="text" className="form-control" id="exampleFormControlInput1" value={titleInput} onChange={(e: any) => setTitle(e.target.value)}
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="exampleFormControlInput1" className="form-label">Color</label>
+                  <input type="text" className="form-control" id="exampleFormControlInput1" />
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="categoryInput" className="form-label">Category</label>
+                  <select id="categoryInput" className="form-select" aria-label="Default select example">
+                    <option selected>Feature</option>
+                    <option value="1">Bug</option>
+                    <option value="2">Chore</option>
+                    <option value="3">Unknown</option>
+                  </select>
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="stageInput" className="form-label">Stage</label>
+                  <select id="stageInput " className="form-select" aria-label="Default select example">
+                    <option selected>Unscheduled</option>
+                    <option value="1">Development</option>
+                    <option value="2">In Progress</option>
+                    <option value="3">Complete</option>
+                  </select>
+                </div>
+
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" className="btn btn-primary">Save changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
     </div>
   )
 }

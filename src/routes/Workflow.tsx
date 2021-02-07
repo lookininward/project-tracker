@@ -1,6 +1,6 @@
 import './Workflow.scss';
 import { useSelector } from "react-redux";
-import { useFirestoreConnect } from "react-redux-firebase";
+import { useFirestoreConnect, useFirestore } from "react-redux-firebase";
 import { Ticket } from '../models/ticket';
 import SVGStory from '../components/svg/Story';
 import SVGFeature from '../components/svg/Feature';
@@ -37,6 +37,13 @@ function Workflow() {
   });
 
   const tickets = useSelector((state: any) => state.firestore.data.tickets);
+
+  const firestore = useFirestore();
+
+  const deleteTicket = async (ticketID: any) => {
+    return firestore.collection('/tickets').doc(ticketID).delete();
+  };
+
   return (
     <div className="dashboard pb-5">
 
@@ -64,14 +71,18 @@ function Workflow() {
                 <div className="workflow-column-body">
                   {
                     tickets &&
-                    Object.values(tickets).map((ticket: any) => new Ticket({
-                      id: ticket.id,
-                      category: ticket.category,
-                      title: ticket.title,
-                      color: ticket.color,
-                      // owners: ticket.owners,
-                      stage: ticket.stage,
-                    })).filter((ticket: any) => ticket.stage === stage.title).map((ticket: any) => {
+                    Object.entries(tickets).map((item: any) => {
+                      const id = item[0];
+                      const ticket = item[1];
+                      return new Ticket({
+                        id,
+                        category: ticket.category,
+                        title: ticket.title,
+                        color: ticket.color,
+                        // owners: ticket.owners,
+                        stage: ticket.stage,
+                      })
+                    }).filter((ticket: any) => ticket.stage === stage.title).map((ticket: any) => {
                       return <div key={ticket.id} className="card text-dark bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ borderLeft: `6px solid ${ticket.color}` }}>
                         <div className="card-body">
                           <p className="card-text">{ticket.title}</p>
@@ -103,8 +114,14 @@ function Workflow() {
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div className="modal-body">
-                                ...
-                                </div>
+                                {ticket.description || 'Please add a description...'}
+
+                                <button className="btn btn-danger"
+                                  onClick={() => deleteTicket(ticket.id)}
+                                >
+                                  Delete
+                                  </button>
+                              </div>
                               <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" className="btn btn-primary">Save changes</button>
