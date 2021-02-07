@@ -30,16 +30,5 @@ import 'firebase/database';
 import 'firebase/firestore';
 import { attachCustomCommands } from 'cypress-firebase';
 
-const firebaseConfig = {
-  apiKey: Cypress.env('apiKey'),
-  authDomain: Cypress.env('authDomain'),
-  projectId: Cypress.env('projectId'),
-  storageBucket: Cypress.env('storageBucket'),
-  messagingSenderId: Cypress.env('messagingSenderId'),
-  appId: Cypress.env('appId'),
-  measurementId: Cypress.env('measurementId'),
-}
-
-firebase.initializeApp(firebaseConfig);
-
+firebase.initializeApp(Cypress.env('FIREBASE_CONFIG'));
 attachCustomCommands({ Cypress, cy, firebase });
