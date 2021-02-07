@@ -33,8 +33,6 @@ jobs:
         with:
           start: yarn run start
           browser: chrome
-          parallel: true
-          # record: true
           headless: true
           wait-on: http://localhost:3000
           wait-on-timeout: 120
