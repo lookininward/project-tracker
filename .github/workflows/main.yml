@@ -34,7 +34,7 @@ jobs:
           start: yarn run start
           browser: chrome
           parallel: true
-          record: true
+          # record: true
           headless: true
           wait-on: ${{ env.CYPRESS_BASE_URL }}
           wait-on-timeout: 120
