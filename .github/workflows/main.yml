@@ -36,7 +36,7 @@ jobs:
           parallel: true
           # record: true
           headless: true
-          wait-on: ${{ env.CYPRESS_BASE_URL }}
+          wait-on: http://localhost:3000
           wait-on-timeout: 120
         env:
           CYPRESS_TEST_UID: ${{ secrets.TEST_UID }}
