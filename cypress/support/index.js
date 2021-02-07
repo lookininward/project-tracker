@@ -20,3 +20,10 @@ console.log('support/index');
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  console.log('Error in uncaught exception:', err.message)
+  // returning false here prevents Cypress from
+  // failing the test
+  return false
+})
