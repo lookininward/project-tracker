@@ -38,6 +38,7 @@ jobs:
           wait-on-timeout: 120
         env:
           CYPRESS_TEST_UID: ${{ secrets.TEST_UID }}
+          CYPRESS_FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
           CYPRESS_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
           CYPRESS_FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
           CYPRESS_FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
