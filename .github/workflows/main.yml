@@ -37,7 +37,8 @@ jobs:
           wait-on: http://localhost:3000
           wait-on-timeout: 120
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN}}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.RECORD_KEY }}
           CYPRESS_TEST_UID: ${{ secrets.TEST_UID }}
           CYPRESS_FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
           CYPRESS_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
