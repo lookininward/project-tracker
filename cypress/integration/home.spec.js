@@ -1,7 +1,3 @@
-console.log(Cypress.env());
-console.log(Cypress.env('FIREBASE_API_KEY'));
-console.log(Cypress.env('FIREBASE_CONFIG'));
-
 describe('Route: Home', () => {
 
   describe('Unauthenticated', () => {
