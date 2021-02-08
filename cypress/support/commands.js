@@ -40,9 +40,6 @@ import { attachCustomCommands } from 'cypress-firebase';
 //   measurementId: Cypress.env('FIREBASE_MEASUREMENT_ID'),
 // }
 
-// console.log('firebase commands');
-// console.log(firebaseConfig);
-
 const firebaseConfig = {
   "apiKey": "AIzaSyAJil9T4SD-mmfQnG-slWRdkE-KpGDW6Jo",
   "authDomain": "project-tracker-demo-2c5e1.firebaseapp.com",
