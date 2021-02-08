@@ -22,6 +22,9 @@ module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
+  console.log('plugins/index');
+  console.log(config);
+
   const extendedConfig = cypressFirebasePlugin(on, config, admin);
   return extendedConfig;
 }
