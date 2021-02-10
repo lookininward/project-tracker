@@ -21,7 +21,7 @@ import { plugin as cypressFirebasePlugin } from 'cypress-firebase';
 export default (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-
+  require('cypress-log-to-output').install(on);
   console.log('config', config)
 
   return cypressFirebasePlugin(on, config, admin);
