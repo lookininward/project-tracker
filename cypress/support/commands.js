@@ -40,7 +40,6 @@ const firebaseConfig = {
   "measurementId": Cypress.env('FIREBASE_MEASUREMENT_ID')
 }
 
-console.log('FIREBASE_CONFIG', Cypress.env('FIREBASE_CONFIG'));
 console.log('firebaseConfig', firebaseConfig);
 
 firebase.initializeApp(firebaseConfig);
