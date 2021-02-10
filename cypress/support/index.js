@@ -13,5 +13,4 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-console.log('support/index');
 import './commands';
