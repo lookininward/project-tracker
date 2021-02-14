@@ -26,8 +26,9 @@ yarn-error.log*
 .eslintcache
 .env
 
-# firebase
-serviceaccount.json
-
 # cypress
 cypress.env.json
+cypress/videos
+cypress/screenshots
+cypress/config.json
+serviceAccount.json

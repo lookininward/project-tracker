@@ -12,5 +12,13 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
+import 'cypress-wait-until'
 
 import './commands';
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  console.log('Error in uncaught exception:', err.message)
+  // returning false here prevents Cypress from
+  // failing the test
+  return false
+})
