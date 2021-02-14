@@ -14,14 +14,24 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
+// const firebaseConfig = {
+//   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+//   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+//   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+//   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+//   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+//   appId: process.env.REACT_APP_FIREBASE_APP_ID,
+//   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+// }
+
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+  "apiKey": "AIzaSyAJil9T4SD-mmfQnG-slWRdkE-KpGDW6Jo",
+  "authDomain": "project-tracker-demo-2c5e1.firebaseapp.com",
+  "projectId": "project-tracker-demo-2c5e1",
+  "storageBucket": "project-tracker-demo-2c5e1.appspot.com",
+  "messagingSenderId": "757974717960",
+  "appId": "1:757974717960:web:b61089624cdebf881ba3bd",
+  "measurementId": "G-DH1GRBPP9B"
 }
 
 const rrfConfig = {
