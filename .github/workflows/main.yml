@@ -56,9 +56,7 @@ jobs:
           
           echo "Exposing settings to environment for branch: $gitBranch and project: $gcloudProject..."
           echo "GCLOUD_PROJECT=$gcloudProject" >> $GITHUB_ENV
-          echo "FIREBASE_DATABASE_EMULATOR_HOST=localhost:$(cat firebase.json | jq .emulators.database.port)" >> $GITHUB_ENV
-          echo "FIRESTORE_EMULATOR_HOST=localhost:$(cat firebase.json | jq .emulators.firestore.port)" >> $GITHUB_ENV
-          echo "CYPRESS_BASE_URL=http://localhost:$(cat package.json | jq .config.port)" >> $GITHUB_ENV
+          echo "CYPRESS_BASE_URL=http://localhost:3000" >> $GITHUB_ENV
           
           echo "Generating Service Account File..."
           echo "$(echo $SERVICE_ACCOUNT | jq .)" > $HOME/serviceAccount.json
