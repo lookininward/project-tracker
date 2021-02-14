@@ -22,17 +22,5 @@ export default (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   require('cypress-log-to-output').install(on);
-  return cypressFirebasePlugin(
-    on,
-    {
-      ...config,
-      env: {
-        ...(config.env || {}),
-        TEST_UID: process.env.TEST_UID,
-        FIREBASE_API_KEY: process.env.REACT_APP_FIREBASE_API_KEY,
-        FIREBASE_PROJECT_ID: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-      },
-    },
-    admin
-  );
+  return cypressFirebasePlugin(on, ...config, admin);
 }
