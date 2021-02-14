@@ -26,10 +26,44 @@ jobs:
 
   # e2e Tests
   e2e-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-16.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1]
     steps:
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.4
+        with:
+          node-version: 12
+
       - name: Checkout Repo
         uses: actions/checkout@v2
+
+      - name: Get Cache Settings
+        id: cache-settings
+        run: |
+          echo "::set-output name=firebase-tools::$(yarn list -s --depth=0 --pattern firebase-tools | tail -n 1 | sed 's/.*@//g')"
+      
+      - name: Set Test Environment Settings
+        env:
+          GITHUB_REF: ${{ github.ref }}
+          SKIP_CYPRESS_RECORDING: true
+        run: |
+          gitBranch=${GITHUB_REF##*/}
+          gcloudProject=$(cat .firebaserc | jq -r --arg branch "$gitBranch" '.projects[$branch] // .projects.master')
+          
+          echo "Exposing settings to environment for branch: $gitBranch and project: $gcloudProject..."
+          echo "GCLOUD_PROJECT=$gcloudProject" >> $GITHUB_ENV
+          echo "FIREBASE_DATABASE_EMULATOR_HOST=localhost:$(cat firebase.json | jq .emulators.database.port)" >> $GITHUB_ENV
+          echo "FIRESTORE_EMULATOR_HOST=localhost:$(cat firebase.json | jq .emulators.firestore.port)" >> $GITHUB_ENV
+          echo "CYPRESS_BASE_URL=http://localhost:$(cat package.json | jq .config.port)" >> $GITHUB_ENV
+          
+          echo "Generating Service Account File..."
+          echo "$(echo $SERVICE_ACCOUNT | jq .)" > $HOME/serviceAccount.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/serviceAccount.json" >> $GITHUB_ENV
+
       - name: Cypress Run
         uses: cypress-io/github-action@v2
         with:
