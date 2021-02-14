@@ -23,7 +23,7 @@ function Account() {
         <div className="card-title text-start">
 
           <div className="d-flex flex-column align-items-start">
-            <img src={profile.avatarUrl} />
+            <img src={profile.avatarUrl} alt="user-avatar"/>
             <div>{profile.displayName}</div>
             <div>{profile.email}</div>
             <button onClick={handleClick} className="btn btn-danger">Sign Out</button>

@@ -1,6 +1,6 @@
 import { useFirebase } from 'react-redux-firebase';
 import { useHistory, Redirect, } from 'react-router-dom';
-import { isLoaded, isEmpty } from 'react-redux-firebase';
+import { isEmpty } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
 
 const SignIn = () => {
