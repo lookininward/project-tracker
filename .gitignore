@@ -24,3 +24,11 @@ yarn-error.log*
 
 # lint
 .eslintcache
+.env
+
+# cypress
+cypress.env.json
+cypress/videos
+cypress/screenshots
+cypress/config.json
+serviceAccount.json

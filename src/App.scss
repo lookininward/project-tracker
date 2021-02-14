@@ -6,11 +6,17 @@ body {
 
 .App {
   text-align: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.home {
   display: grid;
   grid-template-columns: auto 1fr;
 }
 
 .app-body {
+  width: 100vw;
   height: 100vh;
   overflow-y: scroll;  
   background-color: #f7f9fc;

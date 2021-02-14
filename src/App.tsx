@@ -1,59 +1,51 @@
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { isEmpty, isLoaded } from 'react-redux-firebase';
+import { useSelector } from 'react-redux';
+import { Switch, Route, Redirect } from "react-router-dom";
 import './App.scss';
 import Sidebar from './components/Sidebar';
 import Topbar from './components/Topbar';
-import Workflow from './routes/Workflow';
-import Projects from './routes/Projects';
-import Users from './routes/Users';
-import Account from './routes/Account';
+import PrivateRoute from './routes/PrivateRoute';
+import Home from './routes/Home';
+import SignIn from './routes/SignIn';
 
-function App() {
-  const [isOpenSideBar, setSideBarState] = React.useState<Boolean>(false);
-  function toggleSidebar() {
-    setSideBarState(!isOpenSideBar);
-  }
-
-  function Home() {
-    return (
-      <Switch>
-        <Route path="/workflow">
-          <Workflow />
-        </Route>
-        <Route path="/projects">
-          <Projects />
-        </Route>
-        <Route path="/users">
-          <Users />
-        </Route>
-        <Route path="/account">
-          <Account />
-        </Route>
-      </Switch>
-    );
-  }
-
+export function App() {
+  const auth = useSelector((state: any) => state.firebase.auth);
   return (
-    <div className="App">
-      <Router>
-        <Sidebar isOpenSideBar={isOpenSideBar} />
-        <div className="app-body">
-          <Topbar toggleSidebar={toggleSidebar} />
+    <div data-testid="app" className="App">
+      {
+        !isLoaded(auth) ?
           <Switch>
-            <Route>
-              <Redirect to="/workflow" />
-              <Home />
+            <Route
+              exact
+              path="/"
+              render={() => {
+                return (
+                  isEmpty(auth) ?
+                    <Redirect to="/sign-in" /> :
+                    <Redirect to="/home/workflow" />
+                )
+              }}
+            />
+          </Switch>
+          :
+          <Switch>
+            <PrivateRoute path="/home">
+              <div className="home">
+                <Sidebar />
+                <div className="app-body">
+                  <Topbar />
+                  <Home />
+                </div>
+              </div>
+            </PrivateRoute>
+            <Route path="/sign-in">
+              <SignIn />
             </Route>
           </Switch>
-        </div>
-      </Router>
-    </div>
+      }
+    </div >
   );
 }
 

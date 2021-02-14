@@ -1,12 +1,8 @@
-import './Sidebar.scss';
+import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+import './Sidebar.scss';
 
-interface Props {
-  isOpenSideBar: Boolean
-}
-
-function Sidebar(props: Props) {
-  const { isOpenSideBar } = props;
+export function Sidebar({ isOpenSideBar }: any) {
   return (
     <nav data-testid="sidebar" className={`sidebar ${isOpenSideBar && 'active p-2'}`}>
       {
@@ -19,13 +15,13 @@ function Sidebar(props: Props) {
           </div>
           <ul className="list-unstyled text-start">
             <li>
-              <Link to="/workflow">Workflow</Link>
+              <Link to="/home/workflow">Workflow</Link>
             </li>
             <li>
-              <Link data-testid="projects" to="/projects">Projects</Link>
+              <Link data-testid="projects" to="/home/projects">Projects</Link>
             </li>
             <li>
-              <Link data-testid="users" to="/users">Users</Link>
+              <Link data-testid="users" to="/home/users">Users</Link>
             </li>
           </ul>
         </div>}
@@ -33,4 +29,8 @@ function Sidebar(props: Props) {
   )
 }
 
-export default Sidebar;
+const mapStateToProps = (state: any) => ({
+  isOpenSideBar: state.sidebar.isOpenSideBar,
+});
+
+export default connect(mapStateToProps)(Sidebar);
