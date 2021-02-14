@@ -26,18 +26,11 @@ jobs:
 
   # e2e Tests
   e2e-tests:
-    runs-on: ubuntu-16.04
-    timeout-minutes: 20
+    runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
-        containers: [1]
+        node-version: [12.x]
     steps:
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.4
-        with:
-          node-version: 12
-
       - name: Checkout Repo
         uses: actions/checkout@v2
 
