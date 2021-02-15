@@ -6,29 +6,7 @@ import SVGStory from '../components/svg/Story';
 import SVGFeature from '../components/svg/Feature';
 import SVGBug from '../components/svg/Bug';
 import SVGChore from '../components/svg/Chore';
-
-const stages = [
-  {
-    id: 'a',
-    title: 'Unscheduled',
-  },
-  {
-    id: 'z',
-    title: 'Ready for Development',
-  },
-  {
-    id: 'b',
-    title: 'In Progress',
-  },
-  {
-    id: 'v',
-    title: 'Ready for Review',
-  },
-  {
-    id: 'c',
-    title: 'Complete'
-  },
-];
+import { STAGES } from '../constants/stages';
 
 function Workflow() {
   useFirestoreConnect({
@@ -65,9 +43,9 @@ function Workflow() {
       <div className="workflow-board-wrapper ps-4 pe-4">
         <div className="workflow-board  p-4 workflow-section">
           {
-            stages.map(stage => {
-              return <div key={stage.id} className="workflow-column">
-                <h6 className="text-start">{stage.title}</h6>
+            STAGES.map((stage: any) => {
+              return <div key={stage.ID} className="workflow-column">
+                <h6 className="text-start">{stage.LABEL}</h6>
                 <div className="workflow-column-body">
                   {
                     tickets &&
@@ -82,7 +60,7 @@ function Workflow() {
                         // owners: ticket.owners,
                         stage: ticket.stage,
                       })
-                    }).filter((ticket: any) => ticket.stage === stage.title).map((ticket: any) => {
+                    }).filter((ticket: any) => ticket.stage === stage.LABEL).map((ticket: any) => {
                       return <div key={ticket.id} className="card text-dark bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ borderLeft: `6px solid ${ticket.color}` }}>
                         <div className="card-body">
                           <p className="card-text">{ticket.title}</p>
