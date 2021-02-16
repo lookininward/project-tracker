@@ -46,8 +46,8 @@ export function Topbar({ isOpenSideBar, onTogglePressed }: any) {
       </div>
 
       {/* Create Ticket Modal */}
-      <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog modal-dialog-centered text-start">
+      <div className="modal modal-md fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog modal-lg modal-dialog-centered text-start">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">Create Ticket</h5>
