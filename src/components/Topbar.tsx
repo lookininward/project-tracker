@@ -17,7 +17,7 @@ export function Topbar({ isOpenSideBar, onTogglePressed }: any) {
       </div>
 
       <div className="d-flex">
-        <button type="button" className="btn btn-primary btn-sm me-4 d-flex" data-bs-toggle="modal" data-bs-target="#exampleModal">Create Ticket</button>
+        <button type="button" className="btn btn-primary btn-sm me-4 d-flex" data-bs-toggle="modal" data-bs-target="#createTicketModal">Create Ticket</button>
         <input type="text" id="inputPassword5" className="form-control form-control-sm me-4" />
         <select className="form-select form-select-sm me-4" aria-label="Select Project">
           <option defaultValue="All Projects">All Projects</option>

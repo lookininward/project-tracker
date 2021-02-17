@@ -61,7 +61,7 @@ function Workflow() {
                         stage: ticket.stage,
                       })
                     }).filter((ticket: any) => ticket.stage === stage.LABEL).map((ticket: any) => {
-                      return <div key={ticket.id} className="card text-dark bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ borderLeft: `6px solid ${ticket.color}` }}>
+                      return <div key={ticket.id} className="card text-dark bg-light" data-bs-toggle="modal" data-bs-target={`#modal-${ticket.id}`} style={{ borderLeft: `6px solid ${ticket.color}` }}>
                         <div className="card-body">
                           <p className="card-text">{ticket.title}</p>
                         </div>
@@ -84,7 +84,7 @@ function Workflow() {
                           {ticket.id.slice(0, 4)}
                         </div>
 
-                        <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal fade" id={`modal-${ticket.id}`} aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div className="modal-dialog modal-dialog-centered">
                             <div className="modal-content">
                               <div className="modal-header">

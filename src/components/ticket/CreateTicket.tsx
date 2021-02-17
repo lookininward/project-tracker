@@ -1,3 +1,4 @@
+import './CreateTicket.scss';
 import React from 'react';
 import { useFirestore } from "react-redux-firebase";
 import { STAGES } from '../../constants/stages';
@@ -40,12 +41,12 @@ export function CreateTicket() {
   }
 
   return (
-    <div className="modal modal-md fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div className="create-ticket modal fade" id="createTicketModal" aria-labelledby="createTicketModalLabel" aria-hidden="true">
       <div className="modal-dialog modal-lg modal-dialog-centered text-start">
         <div className="modal-content">
           <form onSubmit={(e: any) => handleSubmit(e)}>
-            <div className="modal-body d-flex">
-              <div className="me-4 w-75">
+            <div className="modal-body d-flex flex-column flex-md-row">
+              <div className="create-ticket__body">
                 <input
                   type="text"
                   className="form-control form-control-lg mb-3"
@@ -54,29 +55,31 @@ export function CreateTicket() {
                   value={titleInput || ''}
                   onChange={(e: any) => setTitle(e.target.value)}
                 />
-                <Editor
-                  apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
-                  initialValue=""
-                  init={{
-                    height: 400,
-                    menubar: false,
-                    plugins: [
-                      'code codesample',
-                      'autolink link image',
-                      'media paste wordcount'
-                    ],
-                    toolbar: 'image | undo redo | bold italic backcolor | bullist numlist | codesample | removeformat',
-                    default_link_target: '_blank',
-                    link_assume_external_targets: true,
-                    resize: false
-                  }}
-                  onEditorChange={(editorState: any) => {
-                    setPreviewState({ __html: DOMPurify.sanitize(editorState) });
-                  }}
-                />
+                <div className="create-ticket__body__editor-wrapper">
+                  <Editor
+                    apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
+                    initialValue=""
+                    init={{
+
+                      menubar: false,
+                      plugins: [
+                        'code codesample',
+                        'autolink link image',
+                        'media paste wordcount'
+                      ],
+                      toolbar: 'image | undo redo | bold italic backcolor | bullist numlist | codesample | removeformat',
+                      default_link_target: '_blank',
+                      link_assume_external_targets: true,
+                      resize: false
+                    }}
+                    onEditorChange={(editorState: any) => {
+                      setPreviewState({ __html: DOMPurify.sanitize(editorState) });
+                    }}
+                  />
+                </div>
               </div>
 
-              <div className="w-25">
+              <div className="create-ticket__sidebar">
                 <div className="form-floating mb-3">
                   <select
                     id="stageInput"
@@ -89,7 +92,6 @@ export function CreateTicket() {
                   </select>
                   <label htmlFor="stageInput" className="">Project</label>
                 </div>
-
                 <div className="form-floating mb-3">
                   <select
                     id="stageInput"
@@ -102,7 +104,6 @@ export function CreateTicket() {
                   </select>
                   <label htmlFor="stageInput">Stage</label>
                 </div>
-
                 <div className="form-floating mb-3">
                   <select
                     id="categoryInput"
@@ -115,7 +116,6 @@ export function CreateTicket() {
                   </select>
                   <label htmlFor="categoryInput">Category</label>
                 </div>
-
                 <div className="form-floating mb-3">
                   <select
                     id="categoryInput"
@@ -128,7 +128,6 @@ export function CreateTicket() {
                   </select>
                   <label htmlFor="categoryInput">Creator</label>
                 </div>
-
                 <div className="form-floating mb-3">
                   <select
                     id="categoryInput"
@@ -141,7 +140,6 @@ export function CreateTicket() {
                   </select>
                   <label htmlFor="categoryInput">Owner</label>
                 </div>
-
                 <div className="mb-3">
                   <input
                     type="color"

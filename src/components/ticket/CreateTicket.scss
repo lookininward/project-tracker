@@ -1,0 +1,34 @@
+.create-ticket {
+  &__body {
+    @media (min-width: 768px) {
+      margin-right:  1.25rem;
+      width: 75%;
+    }
+
+    &__editor-wrapper {
+      margin-bottom:  1.25rem;
+
+      @media (min-width: 768px) {
+        margin-bottom:  0;
+      }
+
+      .tox {
+        height: 280px !important;
+
+        @media (min-width: 768px) {
+          height: 400px !important;
+        }
+      }
+    }
+  }
+  &__sidebar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 768px) {
+      width: 25%;
+      flex-direction: column;
+    }
+  }
+}
