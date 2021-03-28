@@ -1,34 +1,158 @@
 .create-ticket {
+  min-width: 500px;
+
   &__body {
-    @media (min-width: 768px) {
-      margin-right:  1.25rem;
-      width: 75%;
+    // Title Input
+    .form-control.form-control--title {
+      border: none;
+
+      &::placeholder {
+        color: rgb(107, 111, 118);
+        font-weight: 500;
+        line-height: 1.6em;
+      }
     }
 
-    &__editor-wrapper {
-      margin-bottom:  1.25rem;
-
-      @media (min-width: 768px) {
-        margin-bottom:  0;
-      }
-
-      .tox {
-        height: 280px !important;
-
-        @media (min-width: 768px) {
-          height: 400px !important;
-        }
-      }
+    // Description Input
+    &__input-description {
+      border: none;
+      width: 100%;
+      margin-bottom: 20px;
+      resize: none;
     }
   }
-  &__sidebar {
+
+  // Search Select Input
+  // wrapper
+  .select-search {
+    &__input,
+    &__clear {
+      padding: 4px;
+      border: none;
+      border-radius: 4px;
+      color: rgb(107, 111, 118);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+      &:hover {
+        background: rgb(244, 245, 248);
+        border-color: rgb(201, 203, 205);
+      }
+
+      &:focus {
+        border: none;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+        cursor: text;
+      }
+    }
+
+    &__input {
+      text-align-last: center;
+      background-color: rgb(239, 241, 244);
+    }
+
+    &__clear {
+      text-align: left;
+      background-color: #fff;
+    }
+
+    &.select-search--users {
+      flex-grow: 1;
+    }
+  }
+
+  .select-search-user {
+    position: relative;
     width: 100%;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    white-space: nowrap;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(239, 241, 244);
+    color: rgb(107, 111, 118);
+    font-size: 12px;
+    font-weight: 500;
+    text-align-last: center;
+    cursor: pointer;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
-    @media (min-width: 768px) {
-      width: 25%;
-      flex-direction: column;
+    &:hover {
+      background: rgb(244, 245, 248);
+      border-color: rgb(201, 203, 205);
     }
+
+    &:focus {
+      border: none;
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+      cursor: text;
+    }
+
+    img {
+      position: absolute;
+      left: 8px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+  }
+
+  .select-search__select button,
+  .select-search__select .user-input-option {
+    display: flex;
+    align-items: center;
+    border: none;
+    width: 100%;
+    padding: 4px;
+    background-color: #fff;
+    color: rgb(60, 65, 73);
+    font-size: 12px !important;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:hover {
+      background-color: rgb(248, 249, 251);
+      color: rgb(40, 42, 48);
+    }
+
+    img {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+  }
+
+  // dropdown
+  .select-search__select {
+    position: absolute;
+    z-index: 2;
+    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      width: 200px;
+    }
+  }
+
+  &__options {
+    display: flex;
+    align-items: center;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #dee2e6;
+    padding: 10px;
   }
 }

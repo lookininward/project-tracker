@@ -14,7 +14,14 @@ function Workflow() {
     storeAs: "tickets"
   });
 
+  useFirestoreConnect({
+    collection: "/users",
+    storeAs: "users"
+  });
+
   const tickets = useSelector((state: any) => state.firestore.data.tickets);
+
+  const users = useSelector((state: any) => state.firestore.data.users);
 
   const firestore = useFirestore();
 
@@ -56,8 +63,9 @@ function Workflow() {
                         id,
                         category: ticket.category,
                         title: ticket.title,
+                        description: ticket.description,
                         color: ticket.color,
-                        // owners: ticket.owners,
+                        owner: ticket.owner,
                         stage: ticket.stage,
                       })
                     }).filter((ticket: any) => ticket.stage === stage.LABEL).map((ticket: any) => {
@@ -92,15 +100,14 @@ function Workflow() {
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div className="modal-body">
-                                {ticket.description || 'Please add a description...'}
-
-                                <button className="btn btn-danger"
-                                  onClick={() => deleteTicket(ticket.id)}
-                                >
-                                  Delete
-                                  </button>
+                                <div>ID: {ticket.id} </div>
+                                <div>Category: {ticket.category || 'None'}</div>
+                                <div>Stage: {ticket.stage || 'None'}</div>
+                                <div>Description: {ticket.description || 'None'}</div>
+                                <div>Owner: {ticket.owner?.id || 'None'}</div>                                
                               </div>
                               <div className="modal-footer">
+                                <button className="btn btn-danger" onClick={() => deleteTicket(ticket.id)}>Delete</button>
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" className="btn btn-primary">Save changes</button>
                               </div>

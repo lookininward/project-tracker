@@ -1,28 +1,39 @@
 export class Ticket {
   id: string;
-  title: string;
   category: string; // 'unknown' | 'feature' | 'bug' | 'chore';
-  color: string;
-  owners: string[];
   stage: string;
+  title: string;
+  description: string;
+  owner: any;
+  color: string;
   [key: string]: string | string[];
 
-  constructor({ id = '', title = '', category = 'unknown', color = '', owners = [], stage = 'unscheduled' } = {}) {
+  constructor({
+    id = '',
+    title = '', description = '',
+    category = 'unknown',
+    color = '',
+    owner = '',
+    stage = 'unscheduled'
+  } = {}) {
     this.id = id;
     this.category = category;
-    this.title = title;
-    this.color = color;
-    this.owners = owners;
     this.stage = stage;
+    this.title = title;
+    this.description = description;
+    this.owner = owner;
+    this.color = color;
   }
 
   get fields() {
     return [
       'id',
       'category',
-      'title',
-      'color',
       'stage',
+      'title',
+      'description',
+      'owner',
+      'color',
     ]
   }
 }
