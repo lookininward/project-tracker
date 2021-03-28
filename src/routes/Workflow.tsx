@@ -6,29 +6,7 @@ import SVGStory from '../components/svg/Story';
 import SVGFeature from '../components/svg/Feature';
 import SVGBug from '../components/svg/Bug';
 import SVGChore from '../components/svg/Chore';
-
-const stages = [
-  {
-    id: 'a',
-    title: 'Unscheduled',
-  },
-  {
-    id: 'z',
-    title: 'Ready for Development',
-  },
-  {
-    id: 'b',
-    title: 'In Progress',
-  },
-  {
-    id: 'v',
-    title: 'Ready for Review',
-  },
-  {
-    id: 'c',
-    title: 'Complete'
-  },
-];
+import { STAGES } from '../constants/stages';
 
 function Workflow() {
   useFirestoreConnect({
@@ -36,7 +14,14 @@ function Workflow() {
     storeAs: "tickets"
   });
 
+  useFirestoreConnect({
+    collection: "/users",
+    storeAs: "users"
+  });
+
   const tickets = useSelector((state: any) => state.firestore.data.tickets);
+
+  const users = useSelector((state: any) => state.firestore.data.users);
 
   const firestore = useFirestore();
 
@@ -65,9 +50,9 @@ function Workflow() {
       <div className="workflow-board-wrapper ps-4 pe-4">
         <div className="workflow-board  p-4 workflow-section">
           {
-            stages.map(stage => {
-              return <div key={stage.id} className="workflow-column">
-                <h6 className="text-start">{stage.title}</h6>
+            STAGES.map((stage: any) => {
+              return <div key={stage.ID} className="workflow-column">
+                <h6 className="text-start">{stage.LABEL}</h6>
                 <div className="workflow-column-body">
                   {
                     tickets &&
@@ -78,12 +63,13 @@ function Workflow() {
                         id,
                         category: ticket.category,
                         title: ticket.title,
+                        description: ticket.description,
                         color: ticket.color,
-                        // owners: ticket.owners,
+                        owner: ticket.owner,
                         stage: ticket.stage,
                       })
-                    }).filter((ticket: any) => ticket.stage === stage.title).map((ticket: any) => {
-                      return <div key={ticket.id} className="card text-dark bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ borderLeft: `6px solid ${ticket.color}` }}>
+                    }).filter((ticket: any) => ticket.stage === stage.LABEL).map((ticket: any) => {
+                      return <div key={ticket.id} className="card text-dark bg-light" data-bs-toggle="modal" data-bs-target={`#modal-${ticket.id}`} style={{ borderLeft: `6px solid ${ticket.color}` }}>
                         <div className="card-body">
                           <p className="card-text">{ticket.title}</p>
                         </div>
@@ -106,7 +92,7 @@ function Workflow() {
                           {ticket.id.slice(0, 4)}
                         </div>
 
-                        <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal fade" id={`modal-${ticket.id}`} aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div className="modal-dialog modal-dialog-centered">
                             <div className="modal-content">
                               <div className="modal-header">
@@ -114,15 +100,14 @@ function Workflow() {
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div className="modal-body">
-                                {ticket.description || 'Please add a description...'}
-
-                                <button className="btn btn-danger"
-                                  onClick={() => deleteTicket(ticket.id)}
-                                >
-                                  Delete
-                                  </button>
+                                <div>ID: {ticket.id} </div>
+                                <div>Category: {ticket.category || 'None'}</div>
+                                <div>Stage: {ticket.stage || 'None'}</div>
+                                <div>Description: {ticket.description || 'None'}</div>
+                                <div>Owner: {ticket.owner?.id || 'None'}</div>                                
                               </div>
                               <div className="modal-footer">
+                                <button className="btn btn-danger" onClick={() => deleteTicket(ticket.id)}>Delete</button>
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" className="btn btn-primary">Save changes</button>
                               </div>
